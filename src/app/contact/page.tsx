@@ -15,6 +15,8 @@ export default function ContactPage() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     document.body.classList.add('js-reveal-ready');
@@ -30,14 +32,36 @@ export default function ContactPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Build mailto link
-    const body = `Name: ${form.name}%0AEmail: ${form.email}%0APhone: ${form.phone}%0AOrganisation: ${form.organisation}%0A%0AMessage:%0A${form.message}`;
-    const mailtoLink = `mailto:info@seviorapharma.com?subject=${encodeURIComponent(form.subject || "Enquiry from Website")}&body=${body}`;
-    window.location.href = mailtoLink;
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to send message. Please try again.");
+      }
+
+      setSubmitted(true);
+    } catch (err: unknown) {
+      const msg =
+        err instanceof Error
+          ? err.message
+          : "Failed to send your message. Please check your connection or email us directly.";
+      setErrorMessage(msg);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
 
   return (
     <>
@@ -139,18 +163,26 @@ export default function ContactPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
-                  <h3 className={styles.successTitle}>Message Sent!</h3>
+                  <h3 className={styles.successTitle}>Enquiry Sent Successfully!</h3>
                   <p className={styles.successText}>
-                    Your email client should have opened. If not, please write
-                    directly to{" "}
-                    <a href="mailto:info@seviorapharma.com" className={styles.successLink}>
-                      info@seviorapharma.com
-                    </a>
+                    Thank you, <strong>{form.name}</strong>. Your enquiry has been received by
+                    Seviora Pharma. Our team will review your details and get back to you at{" "}
+                    <strong>{form.email}</strong> within 24 business hours.
                   </p>
                   <button
                     className="btn btn-primary"
                     style={{ marginTop: "1.5rem" }}
-                    onClick={() => setSubmitted(false)}
+                    onClick={() => {
+                      setForm({
+                        name: "",
+                        email: "",
+                        phone: "",
+                        organisation: "",
+                        subject: "",
+                        message: "",
+                      });
+                      setSubmitted(false);
+                    }}
                   >
                     Send Another Message
                   </button>
@@ -159,10 +191,19 @@ export default function ContactPage() {
                 <>
                   <h3 className={styles.formTitle}>Send Us a Message</h3>
                   <p className={styles.formSubtitle}>
-                    Fill in the form and we&apos;ll get back to you within 24 hours.
+                    Fill in the form below and our team will get back to you within 24 hours.
                   </p>
 
-                  <form onSubmit={handleSubmit} noValidate aria-label="Contact form">
+                  {errorMessage && (
+                    <div className={styles.errorMessage} role="alert">
+                      <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                      </svg>
+                      <span>{errorMessage}</span>
+                    </div>
+                  )}
+
+                  <form onSubmit={handleSubmit} aria-label="Contact form">
                     <div className={styles.formGrid}>
                       <div className={styles.formGroup}>
                         <label htmlFor="name" className={styles.formLabel}>Full Name *</label>
@@ -175,6 +216,7 @@ export default function ContactPage() {
                           value={form.name}
                           onChange={handleChange}
                           required
+                          disabled={isSubmitting}
                           autoComplete="name"
                         />
                       </div>
@@ -189,6 +231,7 @@ export default function ContactPage() {
                           value={form.email}
                           onChange={handleChange}
                           required
+                          disabled={isSubmitting}
                           autoComplete="email"
                         />
                       </div>
@@ -205,6 +248,7 @@ export default function ContactPage() {
                           placeholder="+91 98765 43210"
                           value={form.phone}
                           onChange={handleChange}
+                          disabled={isSubmitting}
                           autoComplete="tel"
                         />
                       </div>
@@ -218,6 +262,7 @@ export default function ContactPage() {
                           placeholder="City Hospital, Lucknow"
                           value={form.organisation}
                           onChange={handleChange}
+                          disabled={isSubmitting}
                           autoComplete="organization"
                         />
                       </div>
@@ -231,6 +276,7 @@ export default function ContactPage() {
                         className={styles.formSelect}
                         value={form.subject}
                         onChange={handleChange}
+                        disabled={isSubmitting}
                       >
                         <option value="">Select a subject…</option>
                         <option value="Product Enquiry">Product Enquiry</option>
@@ -251,6 +297,7 @@ export default function ContactPage() {
                         value={form.message}
                         onChange={handleChange}
                         required
+                        disabled={isSubmitting}
                         rows={5}
                       />
                     </div>
@@ -258,16 +305,18 @@ export default function ContactPage() {
                     <InteractiveHoverButton
                       as="button"
                       type="submit"
-                      text="Send Message"
+                      text={isSubmitting ? "Sending Message..." : "Send Message"}
                       id="contact-submit-btn"
                       className={styles.submitHoverBtn}
+                      disabled={isSubmitting}
                     />
 
                     <p className={styles.formNote}>
-                      * This will open your email client. Alternatively, write directly to{" "}
+                      Your message is delivered directly to our team at{" "}
                       <a href="mailto:info@seviorapharma.com" className={styles.noteLink}>
                         info@seviorapharma.com
                       </a>
+                      .
                     </p>
                   </form>
                 </>
