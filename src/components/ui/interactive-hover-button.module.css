@@ -1,0 +1,155 @@
+/* Interactive Hover Button — Seviora Pharma palette */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50px;
+  border: 2px solid var(--teal);
+  background: transparent;
+  padding: 0.8rem 2rem;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--teal);
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: color 0.35s ease, border-color 0.35s ease;
+  min-width: 160px;
+}
+
+/* Slide-out label */
+.label {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn:hover .label {
+  transform: translateX(60px);
+  opacity: 0;
+}
+
+/* Slide-in hover content */
+.hoverContent {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--white);
+  transform: translateX(-60px);
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.btn:hover .hoverContent {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Expanding blob background — invisible until hover */
+.blob {
+  position: absolute;
+  left: 18%;
+  top: 35%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--mint));
+  transform: scale(1);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease,
+              left 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              top 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+
+.btn:hover .blob {
+  left: -5%;
+  top: -5%;
+  width: 110%;
+  height: 110%;
+  border-radius: 50px;
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Variant: primary (already filled) */
+.btn.primary {
+  background: linear-gradient(135deg, var(--teal), var(--mint));
+  border-color: transparent;
+  color: var(--white);
+  box-shadow: 0 8px 32px rgba(60, 191, 176, 0.3);
+}
+
+.btn.primary .label {
+  color: var(--white);
+}
+
+.btn.primary .blob {
+  background: linear-gradient(135deg, var(--mint), #7ef8e8);
+}
+
+.btn.primary:hover {
+  box-shadow: 0 12px 40px rgba(60, 191, 176, 0.5);
+}
+
+/* Active/pressed state */
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* ===== Mobile: disable hover animations on touch screens ===== */
+@media (max-width: 768px) {
+  /* Freeze the label — don't slide it away on tap */
+  .btn:hover .label,
+  .btn:active .label {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  /* Hide the slide-in hover content completely */
+  .hoverContent {
+    display: none;
+  }
+
+  /* Collapse blob so it never expands */
+  .blob {
+    display: none;
+  }
+
+  /* Make it look like a solid filled button on mobile */
+  .btn {
+    background: linear-gradient(135deg, var(--teal), var(--mint));
+    border-color: transparent;
+    color: var(--white) !important;
+    min-width: unset;
+    width: auto;
+    box-shadow: 0 4px 16px rgba(60, 191, 176, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .btn:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 8px rgba(60, 191, 176, 0.2);
+  }
+
+  /* Keep label text white always */
+  .label {
+    color: var(--white);
+  }
+}

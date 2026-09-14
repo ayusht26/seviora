@@ -1,0 +1,248 @@
+/* ===== Navbar ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+}
+
+/* Dark state: scrolled OR on inner pages with dark hero */
+.navbar.dark {
+  background: rgba(13, 33, 55, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 4px 30px rgba(13, 33, 55, 0.3);
+  padding: 0.625rem 2rem;
+}
+
+.nav {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.logo {
+  flex-shrink: 0;
+}
+
+/* Always show original logo colors inside a white rounded pill.
+   This works on both the transparent light hero and the dark scrolled navbar. */
+.logoPill {
+  display: flex;
+  align-items: center;
+  background: var(--white);
+  border-radius: 10px;
+  padding: 4px 10px;
+  box-shadow: 0 2px 8px rgba(13, 33, 55, 0.12);
+  transition: box-shadow 0.3s ease;
+}
+
+.navbar.dark .logoPill {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+.logoImg {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  /* No filter — original logo colors always */
+  display: block;
+}
+
+/* ===== Desktop Links ===== */
+.links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+}
+
+.link {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--navy);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+  letter-spacing: 0.01em;
+  position: relative;
+}
+
+.navbar.dark .link {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--mint);
+  border-radius: 2px;
+  transition: all 0.25s ease;
+  transform: translateX(-50%);
+}
+
+.link:hover::after,
+.linkActive::after {
+  width: calc(100% - 2rem);
+}
+
+.link:hover {
+  color: var(--teal);
+}
+
+.navbar.dark .link:hover {
+  color: var(--mint);
+}
+
+.linkActive {
+  color: var(--teal) !important;
+}
+
+.navbar.dark .linkActive {
+  color: var(--mint) !important;
+}
+
+/* ===== CTA Button ===== */
+.ctaBtn {
+  padding: 0.6875rem 1.5rem !important;
+  font-size: 0.875rem !important;
+  white-space: nowrap;
+}
+
+/* ===== Hamburger ===== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.hamburger:hover {
+  background: rgba(60, 191, 176, 0.12);
+}
+
+.bar {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--navy);
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.navbar.dark .bar {
+  background: var(--white);
+}
+
+.barOpen1 {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.barOpen2 {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.barOpen3 {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ===== Mobile Menu ===== */
+.mobileMenu {
+  background: rgba(13, 33, 55, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(60, 191, 176, 0.2);
+  padding: 1.5rem 2rem 2rem;
+  animation: slideDown 0.3s ease forwards;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobileMenu ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  list-style: none;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.mobileLink {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0.875rem 1rem;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.mobileLink:hover,
+.mobileLinkActive {
+  background: rgba(60, 191, 176, 0.12);
+  color: var(--mint) !important;
+}
+
+.mobileCta {
+  margin-top: 0.75rem;
+  width: 100%;
+  justify-content: center;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .links {
+    display: none;
+  }
+
+  .ctaBtn {
+    display: none !important;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.875rem 1.25rem;
+  }
+
+  .navbar.dark {
+    padding: 0.5rem 1.25rem;
+  }
+
+  .mobileMenu {
+    padding: 1rem 1.25rem 1.5rem;
+  }
+}

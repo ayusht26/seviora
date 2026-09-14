@@ -1,0 +1,326 @@
+/* ===== SEVIORA PHARMA — Global Styles ===== */
+
+/* Design tokens extracted from logo: deep teal-navy + mint-green gradient palette */
+:root {
+  /* Primary palette */
+  --navy: #0d2137;
+  --teal: #1a6b5e;
+  --mint: #3cbfb0;
+  --mint-light: #6dd5c8;
+  --seafoam: #a8e6df;
+
+  /* Neutrals */
+  --white: #ffffff;
+  --off-white: #f5fffe;
+  --gray-50: #f8fafc;
+  --gray-100: #e8f4f2;
+  --gray-200: #c8dedd;
+  --gray-400: #7a9e9b;
+  --gray-600: #4a6e6b;
+  --gray-900: #0d1f2d;
+
+  /* Accent */
+  --gold: #c4983a;
+  --gold-light: #e8c76a;
+
+  /* Fonts */
+  --font-display: var(--font-outfit), "Outfit", sans-serif;
+  --font-body: var(--font-inter), "Inter", sans-serif;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(13, 33, 55, 0.08);
+  --shadow-md: 0 8px 32px rgba(13, 33, 55, 0.12);
+  --shadow-lg: 0 20px 60px rgba(13, 33, 55, 0.18);
+  --shadow-teal: 0 8px 32px rgba(60, 191, 176, 0.25);
+
+  /* Transitions */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== Reset ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--white);
+  color: var(--gray-900);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ===== Typography ===== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+p {
+  font-family: var(--font-body);
+  color: var(--gray-600);
+  line-height: 1.75;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ===== Utility Classes ===== */
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section {
+  padding: 6rem 0;
+}
+
+.section--alt {
+  background: var(--off-white);
+}
+
+/* Section label (eyebrow) */
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mint);
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+/* Section heading */
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-size: 1.125rem;
+  color: var(--gray-400);
+  max-width: 600px;
+  line-height: 1.75;
+}
+
+/* Highlight span */
+.highlight {
+  background: linear-gradient(135deg, var(--teal), var(--mint));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== Buttons ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border-radius: 50px;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.25s var(--ease),
+              box-shadow 0.25s var(--ease),
+              background 0.3s var(--ease),
+              border-color 0.3s var(--ease),
+              color 0.2s ease;
+  border: 2px solid transparent;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle shimmer on all buttons */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 100%
+  );
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+.btn:hover::before {
+  left: 160%;
+}
+
+.btn:active {
+  transform: scale(0.97) !important;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--teal), var(--mint));
+  color: var(--white);
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(60, 191, 176, 0.25);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(60, 191, 176, 0.45);
+  background: linear-gradient(135deg, #1a7a6d, #4dd6c6);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--white);
+  transform: translateY(-2px);
+}
+
+.btn-navy {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+  box-shadow: 0 4px 16px rgba(13, 33, 55, 0.2);
+}
+
+.btn-navy:hover {
+  background: var(--teal);
+  border-color: var(--teal);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(26, 107, 94, 0.3);
+}
+
+/* ===== Cards ===== */
+.card {
+  background: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s var(--ease);
+  border: 1px solid var(--gray-100);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px);
+}
+
+/* ===== Divider line ===== */
+.divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--mint));
+  border-radius: 2px;
+  margin: 1rem 0 1.5rem;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes drift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(15px, -10px) rotate(120deg); }
+  66% { transform: translate(-10px, 15px) rotate(240deg); }
+  100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s var(--ease) forwards;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ===== Scroll reveal utility (JS-driven) ===== */
+.reveal {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+/* Only apply hidden state when JS has initialized the observer */
+.js-reveal-ready .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.js-reveal-ready .reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 0;
+  }
+
+  .container {
+    padding: 0 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

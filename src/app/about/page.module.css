@@ -1,0 +1,273 @@
+/* About Page Specific Styles */
+
+/* Page Hero - reuse from products */
+.pageHero {
+  position: relative;
+  padding: 10rem 0 5rem;
+  overflow: hidden;
+  background: var(--navy);
+}
+
+.pageHeroBg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(60, 191, 176, 0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 10% 80%, rgba(26, 107, 94, 0.2) 0%, transparent 50%);
+}
+
+.pageHeroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+}
+
+.pageTitle {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.pageSubtitle {
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.8;
+  max-width: 560px;
+}
+
+/* About Layout */
+.aboutLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.storyLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.logoBlock {
+  margin-top: 2rem;
+}
+
+.storyLogo {
+  object-fit: contain;
+}
+
+.storyRight {}
+
+/* Mission/Vision cards */
+.missionVision {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mvCard {
+  background: var(--white);
+  border: 1px solid var(--gray-100);
+  border-radius: 20px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.mvCard:hover {
+  border-color: rgba(60, 191, 176, 0.3);
+  box-shadow: var(--shadow-md);
+}
+
+.mvCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--mint));
+}
+
+.mvIcon {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, rgba(60, 191, 176, 0.1), rgba(26, 107, 94, 0.1));
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--teal);
+  margin-bottom: 1.25rem;
+}
+
+.mvTitle {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.625rem;
+}
+
+.mvText {
+  font-size: 0.9375rem;
+  color: var(--gray-400);
+  line-height: 1.8;
+}
+
+/* Values */
+.teamSection {
+  background: var(--off-white);
+  padding: 5rem 0;
+}
+
+.sectionCenter {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.valueCard {
+  background: var(--white);
+  border: 1px solid var(--gray-100);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.valueCard:hover {
+  border-color: var(--mint);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(60, 191, 176, 0.12);
+}
+
+.valueIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.valueTitle {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+
+.valueText {
+  font-size: 0.875rem;
+  color: var(--gray-400);
+  line-height: 1.7;
+}
+
+/* CTA */
+.aboutCta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, rgba(60, 191, 176, 0.05), rgba(26, 107, 94, 0.08));
+  border: 1px solid rgba(60, 191, 176, 0.2);
+  border-radius: 20px;
+  padding: 2.5rem 3rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.aboutCtaButtons {
+  display: flex;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.aboutCtaNavy {
+  border-color: var(--navy) !important;
+  color: var(--navy) !important;
+}
+
+.aboutCtaNavy .blob {
+  background: linear-gradient(135deg, var(--navy), var(--teal)) !important;
+}
+
+.aboutCtaNavy:hover {
+  color: var(--white) !important;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .aboutLayout {
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .aboutLayout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .pageHero {
+    padding: 9rem 0 4rem;
+  }
+
+  .valuesGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .aboutCta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .aboutCtaButtons {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .pageHero {
+    padding: 8rem 0 3.5rem;
+  }
+
+  .pageTitle {
+    font-size: 2rem;
+  }
+
+  .valuesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .aboutCta {
+    padding: 1.75rem;
+  }
+
+  .missionVision {
+    gap: 1rem;
+  }
+
+  .mvCard {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .pageHero {
+    padding: 7.5rem 0 3rem;
+  }
+
+  .valuesGrid {
+    gap: 1rem;
+  }
+
+  .valueCard {
+    padding: 1.5rem;
+  }
+}
