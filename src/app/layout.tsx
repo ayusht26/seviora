@@ -1,30 +1,22 @@
 import type { Metadata } from "next";
-import { Outfit, Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-});
+import { Header, Footer } from "@/components/site";
 
 export const metadata: Metadata = {
-  title: "Seviora Pharma Private Limited | Quality Pharmaceuticals & Medical Goods",
+  title: "Seviora Pharma — Quality Medicines & Medical Supplies, Lucknow",
   description:
-    "Seviora Pharma Private Limited – A trusted name in pharmaceuticals, medical & orthopaedic goods. Committed to health, innovation, and quality. Based in Lucknow, India.",
-  keywords: "Seviora Pharma, pharmaceuticals, medical goods, orthopaedic, Lucknow, India, healthcare",
+    "Seviora Pharma is a trusted Lucknow-based pharmaceutical company delivering quality medicines, medical goods and solutions to healthcare providers.",
+  keywords:
+    "Seviora Pharma, quality medicines, medical consumables, diagnostics, institutional supply, Lucknow, ISO 9001:2015",
   openGraph: {
-    title: "Seviora Pharma Private Limited",
-    description: "Trusted pharmaceuticals and medical goods provider in India.",
+    title: "Seviora Pharma — Trusted Pharmaceutical Partner",
+    description:
+      "Quality medicines, medical goods and solutions for healthcare providers, from Lucknow.",
     type: "website",
+    siteName: "Seviora Pharma",
+  },
+  icons: {
+    icon: "/favicon.png",
   },
 };
 
@@ -35,8 +27,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${outfit.variable} ${inter.variable}`} suppressHydrationWarning>
-        <Navbar />
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Sora:wght@400..700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>
+        <Header />
         <main>{children}</main>
         <Footer />
       </body>

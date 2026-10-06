@@ -1,186 +1,135 @@
-"use client";
-
-import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowRight, ShieldCheck, Microscope, Award, Truck, CheckCircle2 } from "lucide-react";
 import styles from "./page.module.css";
-import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 
 const values = [
-  { icon: "🔬", title: "Scientific Rigour", text: "Every product is developed on an evidence-based foundation, validated through clinical research." },
-  { icon: "🛡️", title: "Quality First", text: "GMP-certified manufacturing processes ensure each batch meets the highest safety standards." },
-  { icon: "🌿", title: "Patient-Centred", text: "Every decision we make begins and ends with the patient's wellbeing and safety." },
-  { icon: "🤝", title: "Integrity", text: "We build lasting relationships with healthcare providers through honesty and transparency." },
-  { icon: "💡", title: "Innovation", text: "Continuous investment in R&D to bring novel therapeutic solutions to patients in need." },
-  { icon: "🌏", title: "Accessibility", text: "Committed to making quality healthcare affordable and available across all of India." },
+  {
+    icon: ShieldCheck,
+    title: "Quality First & Batch Traceability",
+    desc: "Every carton carries verifiable batch and expiry records, tested against strict WHO-GMP aligned guidelines and released against a Certificate of Analysis."
+  },
+  {
+    icon: Microscope,
+    title: "Audited Formulations",
+    desc: "From broad-spectrum generics to specialised therapy lines, all products originate from audited manufacturing facilities in full CDSCO compliance."
+  },
+  {
+    icon: Truck,
+    title: "Rapid Dispatch & Cold Chain",
+    desc: "Strategically located in Gomti Nagar, Lucknow, ensuring rapid 24–48 hour dispatches across all 75 districts of Uttar Pradesh with insulated 2–8 °C cold-chain verification."
+  },
+  {
+    icon: Award,
+    title: "Institutional Reliability",
+    desc: "Empanelled with over a dozen leading hospitals and medical institutions, providing tender-ready paperwork and scheduled replenishment calendars."
+  }
 ];
 
 export default function AboutPage() {
-  useEffect(() => {
-    document.body.classList.add('js-reveal-ready');
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("visible")),
-      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
-    );
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <>
-      {/* Page Hero */}
-      <section className={styles.pageHero} aria-label="About page header">
-        <div className={styles.pageHeroBg} aria-hidden="true" />
-        <div className="container">
-          <div className={styles.pageHeroContent}>
-            <span className="eyebrow" style={{ color: "var(--mint-light)" }}>
-              Our Story
-            </span>
-            <h1 className={styles.pageTitle}>About Seviora Pharma</h1>
-            <p className={styles.pageSubtitle}>
-              A Lucknow-based pharmaceutical company built on the belief that
-              quality healthcare should be accessible to everyone.
-            </p>
-          </div>
+      <div className="container">
+        <div className={styles.pageHead}>
+          <span className="eyebrow">Seviora Pharma · Our Foundation</span>
+          <h1 className="h-serif">Rooted in Lucknow. Dedicated to Care.</h1>
+          <p className={styles.lede}>
+            Seviora Pharma Private Limited was founded with an unyielding commitment to dependable healthcare distribution, ethical formulations, and consistent supply chains across North India.
+          </p>
         </div>
-      </section>
 
-      {/* Company Story */}
-      <section className="section" aria-labelledby="story-heading">
-        <div className="container">
-          <div className={styles.aboutLayout}>
-            <div className={`${styles.storyLeft} reveal`}>
-              <span className="eyebrow">Our Foundation</span>
-              <h2 id="story-heading" className="section-title">
-                Built on Trust,<br />
-                Driven by Science
-              </h2>
-              <div className="divider" />
-              <p style={{ color: "var(--gray-400)", lineHeight: 1.8, marginBottom: "1rem" }}>
-                Seviora Pharma Private Limited was established with a clear vision:
-                to bridge the gap between cutting-edge pharmaceutical science and
-                accessible healthcare in India. Based in the historic city of Lucknow,
-                Uttar Pradesh, we have grown into a trusted name among healthcare
-                professionals and patients alike.
-              </p>
-              <p style={{ color: "var(--gray-400)", lineHeight: 1.8, marginBottom: "1rem" }}>
-                Our team of experienced pharmacists, medical professionals, and
-                supply chain experts works tirelessly to ensure that every product
-                in our portfolio meets the most stringent quality standards—from
-                the raw material stage through to final delivery.
-              </p>
-              <p style={{ color: "var(--gray-400)", lineHeight: 1.8 }}>
-                We specialise in pharmaceuticals, medical goods, and orthopaedic
-                solutions, serving hospitals, clinics, chemists, and healthcare
-                institutions across 50+ cities in India.
-              </p>
+        {/* Story Section */}
+        <div className={styles.storyGrid}>
+          <div className={styles.storyContent}>
+            <span className="eyebrow">Our Story</span>
+            <h2 className="h-serif" style={{ marginTop: "14px" }}>
+              Bridging clinical quality with regional healthcare access.
+            </h2>
+            <p className={styles.storyText}>
+              Headquartered in Vibhav Khand, Gomti Nagar, Lucknow, Seviora Pharma operates as an essential supply bridge for hospitals, nursing homes, and retail chemists throughout Uttar Pradesh. We understand that behind every medicine packet and hospital consumable is a patient who depends on prompt, uncompromised care.
+            </p>
+            <p className={styles.storyText}>
+              By keeping our inventory deeply stocked with over 400 active SKUs across pharmaceuticals, surgical disposables, diagnostic systems, and nutraceuticals, we eliminate the replenishment delays that often hinder clinical operations.
+            </p>
 
-              <div className={styles.logoBlock}>
-                <Image
-                  src="/logo.png"
-                  alt="Seviora Pharma Private Limited"
-                  width={200}
-                  height={90}
-                  className={styles.storyLogo}
-                />
+            <div className={styles.highlights}>
+              <div className={styles.hlItem}>
+                <CheckCircle2 size={18} />
+                <span>WHO-GMP &amp; ISO aligned manufacturing partners</span>
+              </div>
+              <div className={styles.hlItem}>
+                <CheckCircle2 size={18} />
+                <span>State drug licensing &amp; GST certified operations</span>
+              </div>
+              <div className={styles.hlItem}>
+                <CheckCircle2 size={18} />
+                <span>Complete batch-level documentation on dispatch</span>
               </div>
             </div>
+          </div>
 
-            <div className={`${styles.storyRight} reveal`}>
-              <div className={styles.missionVision}>
-                <div className={styles.mvCard}>
-                  <div className={styles.mvIcon}>
-                    <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <h3 className={styles.mvTitle}>Our Vision</h3>
-                  <p className={styles.mvText}>
-                    To be India's most trusted pharmaceutical company, synonymous
-                    with quality, innovation, and patient-first care—from Lucknow
-                    to every corner of the nation.
-                  </p>
+          <div className={styles.storyBadgeBox}>
+            <div className={styles.badgeInner}>
+              <div className={styles.badgeCity}>Seviora Pharma</div>
+              <p className={styles.badgeAddress}>
+                Plot 12, Vibhav Khand, Gomti Nagar<br />
+                Lucknow, Uttar Pradesh 226010
+              </p>
+              <div className={styles.badgeMeta}>
+                <div>
+                  <strong>400+</strong>
+                  <span>Active SKUs</span>
                 </div>
-
-                <div className={styles.mvCard}>
-                  <div className={styles.mvIcon}>
-                    <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-                    </svg>
-                  </div>
-                  <h3 className={styles.mvTitle}>Our Mission</h3>
-                  <p className={styles.mvText}>
-                    To deliver safe, effective, and affordable pharmaceuticals and
-                    medical products to every patient in India, supported by
-                    world-class quality systems and a dedicated team.
-                  </p>
+                <div>
+                  <strong>75</strong>
+                  <span>Districts Covered</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Values */}
-      <section className={styles.teamSection} aria-labelledby="values-heading">
-        <div className="container">
-          <div className={styles.sectionCenter}>
-            <span className="eyebrow">What Guides Us</span>
-            <h2 id="values-heading" className="section-title">Our Core Values</h2>
-            <div className="divider" style={{ margin: "1rem auto 1.5rem" }} />
-            <p className="section-subtitle" style={{ margin: "0 auto" }}>
-              These principles shape everything we do—from product development
-              to how we serve our partners and patients.
-            </p>
+        {/* Pillars / Values Section */}
+        <div className={styles.valuesSection}>
+          <div className={styles.valuesHead}>
+            <span className="eyebrow">Our Commitments</span>
+            <h2 className="h-serif" style={{ marginTop: "14px" }}>
+              Built on standards you can verify.
+            </h2>
           </div>
 
           <div className={styles.valuesGrid}>
-            {values.map((v, i) => (
-              <div
-                key={v.title}
-                className={`${styles.valueCard} reveal`}
-                style={{ transitionDelay: `${i * 0.06}s` }}
-              >
-                <span className={styles.valueIcon} aria-hidden="true">{v.icon}</span>
-                <h3 className={styles.valueTitle}>{v.title}</h3>
-                <p className={styles.valueText}>{v.text}</p>
-              </div>
-            ))}
+            {values.map((v, idx) => {
+              const Icon = v.icon;
+              return (
+                <div key={idx} className={styles.vCard}>
+                  <div className={styles.vIcon}>
+                    <Icon size={22} />
+                  </div>
+                  <h3 className={styles.vTitle}>{v.title}</h3>
+                  <p className={styles.vDesc}>{v.desc}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
-      </section>
 
-      {/* CTA */}
-      <section className="section" aria-labelledby="about-cta-heading">
-        <div className="container">
-          <div className={`${styles.aboutCta} reveal`}>
-            <div>
-              <h2 id="about-cta-heading" className="section-title" style={{ marginBottom: "0.5rem" }}>
-                Partner with Seviora
-              </h2>
-              <p style={{ color: "var(--gray-400)", fontSize: "1rem" }}>
-                Join hundreds of healthcare providers who trust Seviora Pharma for quality medicines and medical goods.
-              </p>
-            </div>
-            <div className={styles.aboutCtaButtons}>
-              <InteractiveHoverButton
-                as="a"
-                href="/products"
-                text="View Products"
-                id="about-view-products-btn"
-              />
-              <InteractiveHoverButton
-                as="a"
-                href="/contact"
-                text="Contact Us"
-                id="about-contact-btn"
-                className={styles.aboutCtaNavy}
-              />
-            </div>
+        {/* Call to action */}
+        <div className={styles.aboutCta}>
+          <div>
+            <h3 className="h-serif">Partner with Seviora Pharma</h3>
+            <p>Speak to our Lucknow desk to discuss pricing, institutional supply or regional distribution.</p>
+          </div>
+          <div className={styles.aboutCtaBtns}>
+            <Link href="/contact" className="btn btn-primary">
+              Contact Us <ArrowRight />
+            </Link>
+            <Link href="/products" className="btn btn-ghost">
+              Explore Products
+            </Link>
           </div>
         </div>
-      </section>
+      </div>
     </>
   );
 }

@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Seviora Pharma — a trusted Lucknow-based pharmaceutical company delivering quality medicines, medical goods and solutions to healthcare providers.">
+<title>Seviora Pharma — Quality medicines & medical supplies · Lucknow</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg transform='rotate(-45 12 12)'%3E%3Cpath d='M8.5 15.5A3.5 3.5 0 0 1 8.5 8.5H12v7z' fill='%23123B2E'/%3E%3Cpath d='M12 8.5h3.5a3.5 3.5 0 0 1 0 7H12z' fill='none' stroke='%23123B2E' stroke-width='1.8'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..650;1,9..144,400..650&family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+<style>
+/* ============ Foundations ============ */
+:root{
+  --paper:#F6F4EE;
+  --paper-2:#FCFBF8;
+  --white:#FFFFFF;
+  --ink:#14231B;
+  --ink-soft:#4A564E;
+  --pine:#123B2E;
+  --pine-deep:#0C2C22;
+  --footer:#0A241B;
+  --sage:#E9EFE6;
+  --sage-2:#D8E3D6;
+  --accent:#1E7A57;
+  --terra:#B4532A;
+  --line:rgba(20,35,27,.14);
+  --line-strong:rgba(20,35,27,.32);
+  --line-ivory:rgba(246,244,238,.16);
+  --serif:"Fraunces",Georgia,serif;
+  --sans:"Instrument Sans","Helvetica Neue",sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:16px;line-height:1.6;display:flex;flex-direction:column;min-height:100vh;
+  font-optical-sizing:auto;
+}
+body.is-loading,body.menu-open{overflow:hidden}
+::selection{background:var(--pine);color:var(--paper)}
+img,svg{display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;color:inherit}
+ul{list-style:none}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:rgba(20,35,27,.25);border-radius:6px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+.container{width:min(1200px,100% - 48px);margin-inline:auto}
+.section{padding:104px 0}
+section[id^="page-"]{display:none}
+section[id^="page-"].active{display:block}
+
+/* Eyebrow + headings */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:11.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);
+}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--accent)}
+.h-serif{font-family:var(--serif);font-weight:550;letter-spacing:-.01em;line-height:1.08;color:var(--ink)}
+h2.h-serif{font-size:clamp(2rem,3.6vw,3rem);margin-top:18px;max-width:18ch}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:56px;flex-wrap:wrap}
+.section-lede{max-width:44ch;color:var(--ink-soft);font-size:15.5px}
+
+/* ============ Buttons ============ */
+.btn{
+  position:relative;display:inline-flex;align-items:center;gap:10px;
+  font-size:15px;font-weight:600;letter-spacing:.01em;border-radius:999px;
+  padding:14px 26px;border:1px solid transparent;transition:transform .25s var(--ease),background .25s,color .25s,border-color .25s,box-shadow .25s;
+}
+.btn svg{width:17px;height:17px;transition:transform .3s var(--ease)}
+.btn:hover svg{transform:translateX(3px)}
+.btn:active{transform:scale(.975)}
+.btn-primary{background:var(--pine);color:var(--paper)}
+.btn-primary:hover{background:var(--pine-deep);transform:translateY(-1px);box-shadow:0 10px 24px rgba(12,44,34,.22)}
+.btn-ghost{border-color:var(--line-strong);color:var(--ink);background:transparent}
+.btn-ghost:hover{background:var(--sage);border-color:var(--pine)}
+.btn-sm{padding:10px 18px;font-size:13.5px}
+.btn-light{background:var(--paper);color:var(--pine)}
+.btn-light:hover{background:var(--white);transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.btn-outline-light{border-color:var(--line-ivory);color:var(--paper);background:transparent}
+.btn-outline-light:hover{border-color:var(--paper);background:rgba(246,244,238,.08)}
+.btn.loading{pointer-events:none}
+.btn.loading .btn-label,.btn.loading svg{opacity:0}
+.btn.loading::after{
+  content:"";position:absolute;left:50%;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;
+  border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ============ Reveal system ============ */
+[data-reveal]{opacity:0;transform:translateY(20px);transition:opacity .75s var(--ease) var(--d,0s),transform .75s var(--ease) var(--d,0s)}
+[data-reveal].in{opacity:1;transform:none}
+
+/* ============ Preloader ============ */
+#loader{
+  position:fixed;inset:0;z-index:100;background:var(--pine-deep);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .85s cubic-bezier(.76,0,.24,1);
+}
+body.is-loaded #loader{transform:translateY(-101%)}
+.loader-inner{text-align:center}
+.loader-word{font-family:var(--serif);font-size:clamp(2.6rem,7vw,4rem);color:var(--paper);overflow:hidden;line-height:1.15}
+.loader-word span{display:inline-block;transform:translateY(110%);animation:lup .8s var(--ease) forwards}
+@keyframes lup{to{transform:none}}
+.loader-sub{margin-top:10px;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:rgba(246,244,238,.55)}
+.loader-bar{width:150px;height:1px;background:var(--line-ivory);margin:26px auto 0;overflow:hidden}
+.loader-bar i{display:block;height:100%;background:var(--paper);width:0;animation:lbar 1s var(--ease) .2s forwards}
+@keyframes lbar{to{width:100%}}
+
+/* ============ Topbar + Header ============ */
+.topbar{background:var(--footer);color:rgba(246,244,238,.8);font-size:12.5px}
+.topbar .container{display:flex;justify-content:space-between;align-items:center;height:38px;gap:20px}
+.topbar a{display:inline-flex;align-items:center;gap:7px;transition:color .2s}
+.topbar a:hover{color:var(--paper)}
+.topbar svg{width:13px;height:13px}
+.topbar-right{display:flex;gap:26px}
+.navwrap{
+  position:sticky;top:0;z-index:60;
+  background:rgba(246,244,238,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s;
+}
+.navwrap.scrolled{border-bottom-color:var(--line);box-shadow:0 6px 24px rgba(20,35,27,.06)}
+.navbar{display:flex;align-items:center;justify-content:space-between;height:74px;gap:24px}
+.brand{display:inline-flex;align-items:center;gap:11px}
+.brand-logo{height:46px;width:auto;display:block;object-fit:contain;transition:transform .25s var(--ease),opacity .25s var(--ease)}
+.brand:hover .brand-logo{opacity:.88;transform:translateY(-1px)}
+.brand-logo-foot{height:42px}
+.brand-mark{width:24px;height:24px;color:var(--pine)}
+.brand-name{font-family:var(--serif);font-size:25px;font-weight:600;letter-spacing:-.01em}
+.brand-sep{width:1px;height:18px;background:var(--line-strong)}
+.brand-tag{font-size:11px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-soft)}
+.nav{display:flex;gap:38px}
+.nav a{position:relative;font-size:14.5px;font-weight:500;color:var(--ink-soft);padding:6px 0;transition:color .25s}
+.nav a::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--pine);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav a:hover{color:var(--ink)}
+.nav a.active{color:var(--ink)}
+.nav a.active::after,.nav a:hover::after{transform:scaleX(1)}
+.nav-cta{display:flex;align-items:center;gap:16px}
+
+/* Burger + mobile menu */
+.burger{display:none;width:42px;height:42px;background:none;border:0;position:relative;z-index:70}
+.burger span{position:absolute;left:9px;right:9px;height:2px;background:var(--ink);transition:transform .35s var(--ease),top .35s var(--ease),background .35s}
+.burger span:nth-child(1){top:16px}
+.burger span:nth-child(2){top:24px}
+body.menu-open .burger span{background:var(--paper)}
+body.menu-open .burger span:nth-child(1){top:20px;transform:rotate(45deg)}
+body.menu-open .burger span:nth-child(2){top:20px;transform:rotate(-45deg)}
+.mmenu{
+  position:fixed;inset:0;z-index:55;background:var(--pine-deep);color:var(--paper);
+  padding:120px 32px 40px;display:flex;flex-direction:column;justify-content:space-between;
+  transform:translateX(100%);transition:transform .55s cubic-bezier(.76,0,.24,1);visibility:hidden;
+}
+body.menu-open .mmenu{transform:none;visibility:visible}
+.mmenu nav{display:flex;flex-direction:column}
+.mmenu nav a{
+  font-family:var(--serif);font-size:clamp(2rem,7vw,2.6rem);padding:20px 0;border-bottom:1px solid var(--line-ivory);
+  display:flex;align-items:baseline;gap:18px;opacity:0;transform:translateY(18px);transition:opacity .5s var(--ease),transform .5s var(--ease);
+}
+body.menu-open .mmenu nav a{opacity:1;transform:none}
+body.menu-open .mmenu nav a:nth-child(1){transition-delay:.15s}
+body.menu-open .mmenu nav a:nth-child(2){transition-delay:.23s}
+body.menu-open .mmenu nav a:nth-child(3){transition-delay:.31s}
+.mmenu nav a small{font-family:var(--sans);font-size:12px;letter-spacing:.2em;color:rgba(246,244,238,.5)}
+.mmenu nav a svg{width:20px;height:20px;margin-left:auto;color:rgba(246,244,238,.6)}
+.mmenu-foot{font-size:13.5px;color:rgba(246,244,238,.65);line-height:2}
+
+/* ============ Page transitions ============ */
+#app{transition:opacity .22s ease,transform .22s ease}
+#app.is-leaving{opacity:0;transform:translateY(-8px)}
+#app.is-entering{opacity:0;transform:translateY(10px);transition:none}
+
+/* ============ Hero ============ */
+.hero{padding:64px 0 0}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero h1{font-family:var(--serif);font-weight:550;font-size:clamp(2.7rem,5.6vw,4.4rem);line-height:1.06;letter-spacing:-.015em}
+.hero h1 em{font-style:italic;color:var(--pine)}
+.hline{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+.hline span{display:block;transform:translateY(112%);transition:transform .95s var(--ease) var(--d,0s)}
+body.is-loaded .hline span{transform:none}
+.hfade{opacity:0;transform:translateY(16px);transition:opacity .85s ease var(--d,0s),transform .85s var(--ease) var(--d,0s)}
+body.is-loaded .hfade{opacity:1;transform:none}
+.hero-sub{margin:26px 0 34px;max-width:48ch;font-size:16.5px;color:var(--ink-soft)}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.hero-art{position:relative;justify-self:center;width:min(520px,100%)}
+.capsule-svg{width:100%;height:auto;overflow:visible}
+.cap-print{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.32em;fill:var(--pine);opacity:0;transition:opacity .6s ease 1.4s}
+.draw{stroke-dasharray:1;stroke-dashoffset:1}
+body.is-loaded .draw{animation:draw 1s cubic-bezier(.65,0,.35,1) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.d1{animation-delay:.5s}.d2{animation-delay:.95s}.d3{animation-delay:1.15s}.d4{animation-delay:1.3s}
+.cap-fill{opacity:0;transition:opacity .6s ease 1.1s}
+body.is-loaded .cap-fill{opacity:1}
+body.is-loaded .cap-print{opacity:.75}
+.ring{transform-origin:280px 280px;animation:spin 80s linear infinite}
+.caps-float{animation:floatY 7s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+/* Stat strip */
+.stats{border-top:1px solid var(--line);margin-top:70px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:34px 30px;border-left:1px solid var(--line)}
+.stat:first-child{border-left:0;padding-left:0}
+.stat-num{font-family:var(--serif);font-size:clamp(2rem,3.4vw,2.8rem);font-weight:550;line-height:1;color:var(--pine)}
+.stat-label{margin-top:10px;font-size:13px;color:var(--ink-soft)}
+
+/* Marquee */
+.marquee{border-block:1px solid var(--line);overflow:hidden;padding:17px 0;background:var(--paper-2)}
+.mq-track{display:flex;width:max-content;animation:mq 32s linear infinite}
+.marquee:hover .mq-track{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+.mq-group{display:flex;align-items:center}
+.mq-group span{white-space:nowrap;font-size:13.5px;font-weight:500;letter-spacing:.05em;color:var(--ink-soft);padding:0 30px}
+.mq-dot{width:5px;height:5px;background:var(--accent);transform:rotate(45deg);flex:none}
+
+/* ============ Divisions accordion ============ */
+.acc-item{border-top:1px solid var(--line)}
+.acc-item:last-child{border-bottom:1px solid var(--line)}
+.acc-head{
+  width:100%;display:grid;grid-template-columns:64px 1fr 44px;align-items:center;gap:20px;
+  background:none;border:0;text-align:left;padding:30px 6px;
+}
+.acc-num{font-size:13px;letter-spacing:.1em;color:var(--ink-soft);transition:color .3s}
+.acc-title{font-family:var(--serif);font-size:clamp(1.4rem,2.6vw,2rem);font-weight:550;transition:transform .35s var(--ease)}
+.acc-icon{width:42px;height:42px;border:1px solid var(--line-strong);border-radius:50%;display:grid;place-items:center;transition:background .3s,transform .45s var(--ease),border-color .3s}
+.acc-icon svg{width:18px;height:18px;transition:color .3s}
+.acc-item:hover .acc-num{color:var(--accent)}
+.acc-item:hover .acc-title{transform:translateX(6px)}
+.acc-item.open .acc-icon{background:var(--pine);border-color:var(--pine);transform:rotate(45deg)}
+.acc-item.open .acc-icon svg{color:var(--paper)}
+.acc-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}
+.acc-item.open .acc-body{grid-template-rows:1fr}
+.acc-body-in{overflow:hidden;min-height:0}
+.acc-content{padding:0 6px 34px 84px;max-width:62ch}
+.acc-content p{color:var(--ink-soft);font-size:15.5px}
+.acc-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.acc-tags span{font-size:12px;font-weight:600;padding:5px 12px;border:1px solid var(--line-strong);border-radius:999px;color:var(--ink)}
+
+/* ============ Commitments ============ */
+.commit{background:var(--paper-2);border-block:1px solid var(--line)}
+.commit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 72px;margin-top:10px}
+.commit-item{display:grid;grid-template-columns:48px 1fr;gap:22px;padding:34px 0;border-top:1px solid var(--line)}
+.commit-icon{width:44px;height:44px;border:1px solid var(--line-strong);border-radius:50%;display:grid;place-items:center;color:var(--pine)}
+.commit-icon svg{width:19px;height:19px}
+.commit-item h3{font-size:17px;font-weight:600;letter-spacing:-.005em}
+.commit-item .c-num{font-size:11.5px;letter-spacing:.14em;color:var(--accent);font-weight:600}
+.commit-item p{margin-top:7px;font-size:14.5px;color:var(--ink-soft);max-width:44ch}
+
+/* ============ Dark quality band ============ */
+.dark-band{background:var(--pine-deep);color:var(--paper)}
+.dark-band .eyebrow{color:rgba(246,244,238,.6)}
+.dark-band .eyebrow::before{background:var(--sage-2)}
+.dark-band h2{color:var(--paper)}
+.dark-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:80px;align-items:center}
+.dark-copy p{margin-top:22px;color:rgba(246,244,238,.72);font-size:15.5px;max-width:52ch}
+.checks{margin-top:26px;display:grid;gap:13px}
+.checks li{display:flex;align-items:center;gap:12px;font-size:14.5px;color:rgba(246,244,238,.85)}
+.checks svg{width:16px;height:16px;color:var(--sage-2);flex:none}
+.dark-stats{display:grid}
+.dstat{padding:28px 0;border-top:1px solid var(--line-ivory)}
+.dstat:last-child{border-bottom:1px solid var(--line-ivory)}
+.dstat-num{font-family:var(--serif);font-size:clamp(2.4rem,4vw,3.2rem);font-weight:550;line-height:1}
+.dstat-label{margin-top:8px;font-size:13px;letter-spacing:.06em;color:rgba(246,244,238,.6)}
+
+/* ============ Lucknow ============ */
+.lucknow{
+  background:var(--sage);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Ccircle cx='1.5' cy='1.5' r='1.1' fill='%2314231B' fill-opacity='.07'/%3E%3C/svg%3E");
+}
+.luck-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:72px;align-items:center}
+.luck-copy p{margin-top:22px;color:var(--ink-soft);font-size:15.5px;max-width:52ch}
+.luck-addr{margin-top:28px;padding-top:22px;border-top:1px solid var(--line-strong);display:flex;gap:14px;align-items:flex-start;font-style:normal;font-size:15px;line-height:1.75}
+.luck-addr svg{width:18px;height:18px;color:var(--pine);margin-top:5px;flex:none}
+.plaque{
+  background:var(--paper);border:1px solid var(--line-strong);border-radius:16px;padding:44px 36px;
+  display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:0 18px 44px rgba(20,35,27,.08);
+}
+.plaque-dot{position:relative;width:64px;height:64px;display:grid;place-items:center;margin-bottom:22px}
+.plaque-dot::before{content:"";position:absolute;inset:0;border:1px solid var(--pine);border-radius:50%;animation:pulse 2.4s ease-out infinite}
+.plaque-dot i{width:12px;height:12px;border-radius:50%;background:var(--pine)}
+@keyframes pulse{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.5);opacity:0}}
+.plaque-city{font-family:var(--serif);font-size:26px;font-weight:550}
+.plaque-coords{margin-top:8px;font-size:12.5px;letter-spacing:.22em;color:var(--ink-soft)}
+.plaque-note{margin-top:16px;font-size:13px;color:var(--ink-soft);max-width:30ch}
+
+/* ============ CTA band ============ */
+.cta{border-top:1px solid var(--line);text-align:center}
+.cta-inner{max-width:720px;margin:0 auto}
+.cta p{margin:20px auto 34px;color:var(--ink-soft);max-width:46ch}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ============ Footer ============ */
+footer{background:var(--footer);color:rgba(246,244,238,.78);padding:76px 0 30px;margin-top:auto}
+.foot-grid{display:grid;grid-template-columns:1.4fr .7fr .9fr 1.1fr;gap:56px;padding-bottom:56px}
+.foot-brand .brand{color:var(--paper)}
+.foot-brand .brand-mark,.foot-brand .brand-tag{color:var(--sage-2)}
+.foot-brand p{margin-top:20px;font-size:14px;max-width:34ch;color:rgba(246,244,238,.6)}
+.foot-domain{display:inline-block;margin-top:20px;font-size:12.5px;letter-spacing:.06em;padding:7px 14px;border:1px solid var(--line-ivory);border-radius:999px;color:rgba(246,244,238,.8)}
+footer h4{font-size:11.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(246,244,238,.45);margin-bottom:18px}
+.foot-links li{margin-bottom:11px}
+.foot-links a{font-size:14.5px;color:rgba(246,244,238,.8);transition:color .2s}
+.foot-links a:hover{color:var(--paper);text-decoration:underline;text-underline-offset:4px}
+.foot-contact{font-style:normal;font-size:14.5px;line-height:2;color:rgba(246,244,238,.8)}
+.foot-contact a{display:block;transition:color .2s}
+.foot-contact a:hover{color:var(--paper)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;border-top:1px solid var(--line-ivory);padding-top:26px;font-size:13px;color:rgba(246,244,238,.5);flex-wrap:wrap}
+.foot-right{display:flex;align-items:center;gap:18px}
+#toTop{width:38px;height:38px;border:1px solid var(--line-ivory);border-radius:50%;background:none;color:rgba(246,244,238,.8);display:grid;place-items:center;transition:background .25s,transform .25s}
+#toTop:hover{background:rgba(246,244,238,.1);transform:translateY(-2px)}
+#toTop svg{width:16px;height:16px}
+
+/* ============ Page heads ============ */
+.page-head{padding:78px 0 8px}
+.page-head h1{font-size:clamp(2.5rem,5vw,3.7rem);margin-top:18px}
+.page-head .lede{margin-top:20px;max-width:56ch;color:var(--ink-soft);font-size:16px}
+
+/* ============ Products ============ */
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding:34px 0 26px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tabs button{
+  font-size:13.5px;font-weight:600;padding:9px 18px;border-radius:999px;border:1px solid var(--line-strong);
+  background:transparent;color:var(--ink-soft);transition:all .25s var(--ease);
+}
+.tabs button:hover{border-color:var(--pine);color:var(--ink)}
+.tabs button.active{background:var(--pine);border-color:var(--pine);color:var(--paper)}
+.search{position:relative}
+.search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--ink-soft);pointer-events:none}
+.search input{
+  width:280px;max-width:100%;padding:12px 16px 12px 42px;font-family:inherit;font-size:15px;color:var(--ink);
+  border:1px solid var(--line-strong);border-radius:999px;background:var(--white);transition:border-color .25s,box-shadow .25s;
+}
+.search input:focus{outline:none;border-color:var(--pine);box-shadow:0 0 0 4px rgba(18,59,46,.1)}
+.list-meta{display:flex;justify-content:space-between;gap:20px;font-size:13px;color:var(--ink-soft);padding-bottom:14px;flex-wrap:wrap}
+.plist{transition:opacity .18s ease,transform .18s ease}
+.plist.swap{opacity:0;transform:translateY(10px)}
+.p-labels,.prow-head{display:grid;grid-template-columns:46px minmax(0,2.2fr) 1fr 1fr 78px 46px;gap:20px;align-items:center;padding-inline:8px}
+.p-labels{
+  padding-block:12px;border-top:1px solid var(--line-strong);border-bottom:1px solid var(--line);
+  font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);
+}
+.prow{border-bottom:1px solid var(--line)}
+.prow-head{
+  width:100%;background:none;border:0;text-align:left;padding-block:20px;
+  transition:background .25s;
+}
+.prow-head:hover{background:rgba(255,255,255,.65)}
+.p-idx{font-size:12.5px;color:var(--ink-soft);transition:color .25s}
+.prow-head:hover .p-idx{color:var(--accent)}
+.p-name strong{display:block;font-size:16.5px;font-weight:600;letter-spacing:-.005em}
+.p-name span{display:block;font-size:13px;color:var(--ink-soft);margin-top:3px}
+.p-cat,.p-pack{font-size:14px;color:var(--ink-soft)}
+.p-tag{justify-self:start;font-size:11px;font-weight:700;letter-spacing:.08em;padding:4px 11px;border-radius:999px}
+.t-rx{background:var(--pine);color:var(--paper)}
+.t-otc{border:1px solid var(--pine);color:var(--pine)}
+.t-gen{background:var(--sage-2);color:var(--ink)}
+.p-chev{width:38px;height:38px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:all .35s var(--ease)}
+.p-chev svg{width:15px;height:15px;transition:transform .35s var(--ease)}
+.prow.open .p-chev{background:var(--pine);border-color:var(--pine);color:var(--paper)}
+.prow.open .p-chev svg{transform:rotate(45deg)}
+.prow-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.prow.open .prow-body{grid-template-rows:1fr}
+.prow-body-in{overflow:hidden;min-height:0}
+.prow-detail{
+  display:grid;grid-template-columns:1fr 1.1fr;gap:44px;padding:6px 8px 30px 74px;
+  opacity:0;transform:translateY(6px);transition:opacity .35s ease .08s,transform .35s var(--ease) .08s;
+}
+.prow.open .prow-detail{opacity:1;transform:none}
+.p-specs div{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.p-specs dt{color:var(--ink-soft);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding-top:2px}
+.p-specs dd{color:var(--ink)}
+.p-info p{font-size:14.5px;color:var(--ink-soft)}
+.p-info .btn{margin-top:18px}
+.p-empty{padding:70px 20px;text-align:center;color:var(--ink-soft);border-bottom:1px solid var(--line)}
+.p-empty svg{width:30px;height:30px;margin:0 auto 16px;opacity:.5}
+.p-empty .btn{margin-top:20px}
+.cat-band{margin-top:80px;background:var(--pine-deep);color:var(--paper);border-radius:18px;padding:52px 56px;display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap}
+.cat-band h3{font-family:var(--serif);font-size:clamp(1.4rem,2.4vw,1.9rem);font-weight:550}
+.cat-band p{margin-top:8px;font-size:14.5px;color:rgba(246,244,238,.68);max-width:52ch}
+
+/* ============ Contact ============ */
+.contact-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;padding:48px 0 110px;align-items:start}
+.contact-cards{display:flex;flex-direction:column;gap:16px;margin-bottom:28px}
+.c-card{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:22px 24px;
+  display:flex;
+  align-items:flex-start;
+  gap:18px;
+  box-shadow:0 4px 18px rgba(20,35,27,.03);
+  transition:transform .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease);
+}
+.c-card:hover{
+  transform:translateY(-2px);
+  border-color:rgba(18,59,46,.28);
+  box-shadow:0 12px 30px rgba(18,59,46,.08);
+}
+.c-card-icon{
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  background:var(--sage);
+  color:var(--pine);
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  transition:background .25s,color .25s,transform .25s var(--ease);
+}
+.c-card:hover .c-card-icon{
+  background:var(--pine);
+  color:var(--paper);
+  transform:scale(1.05);
+}
+.c-card-icon svg{width:20px;height:20px}
+.c-card-main{flex:1;min-width:0}
+.c-card-lbl{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:6px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.c-card-status{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.03em;
+  text-transform:none;
+  padding:2px 8px;
+  background:var(--sage);
+  color:var(--pine);
+  border-radius:999px;
+  white-space:nowrap;
+}
+.c-card-val{
+  font-size:19px;
+  font-weight:700;
+  letter-spacing:-.01em;
+  color:var(--pine);
+  line-height:1.3;
+  display:inline-block;
+  transition:color .2s;
+  word-break:break-word;
+}
+a.c-card-val:hover{color:var(--accent)}
+.c-card-desc{
+  margin-top:6px;
+  font-size:13.5px;
+  color:var(--ink-soft);
+  line-height:1.55;
+}
+.c-card-subval{
+  font-size:15px;
+  font-weight:600;
+  color:var(--ink);
+  margin-top:2px;
+}
+.c-card-subnote{
+  font-size:12.5px;
+  color:var(--ink-soft);
+  margin-top:4px;
+}
+.c-card-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:14px;
+  flex-wrap:wrap;
+}
+.c-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  font-weight:600;
+  padding:7px 13px;
+  border-radius:8px;
+  border:1px solid transparent;
+  transition:all .2s var(--ease);
+  cursor:pointer;
+  background:transparent;
+  color:inherit;
+  line-height:1;
+}
+.c-btn svg{width:13px;height:13px}
+.c-btn-primary{
+  background:var(--pine);
+  color:var(--paper);
+}
+.c-btn-primary:hover{
+  background:var(--pine-deep);
+  transform:translateY(-1px);
+  box-shadow:0 4px 12px rgba(18,59,46,.2);
+}
+.c-btn-wa{
+  background:#128C7E;
+  color:#FFFFFF;
+}
+.c-btn-wa:hover{
+  background:#075E54;
+  transform:translateY(-1px);
+  box-shadow:0 4px 12px rgba(18,140,126,.25);
+}
+.c-btn-ghost{
+  border-color:var(--line-strong);
+  color:var(--ink);
+  background:var(--paper-2);
+}
+.c-btn-ghost:hover{
+  background:var(--sage);
+  border-color:var(--pine);
+}
+.c-badge-live{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:11.5px;
+  font-weight:600;
+  letter-spacing:.03em;
+  text-transform:none;
+  padding:3px 9px;
+  border-radius:999px;
+  background:#E6F4EA;
+  color:#137333;
+}
+.c-badge-live.is-closed{
+  background:rgba(20,35,27,.08);
+  color:var(--ink-soft);
+}
+.c-live-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#1e8e3e;
+  box-shadow:0 0 0 0 rgba(30,142,62,.6);
+  animation:pulseDot 2s infinite;
+}
+.c-badge-live.is-closed .c-live-dot{
+  background:var(--ink-soft);
+  animation:none;
+}
+@keyframes pulseDot{
+  0%{box-shadow:0 0 0 0 rgba(30,142,62,.6)}
+  70%{box-shadow:0 0 0 6px rgba(30,142,62,0)}
+  100%{box-shadow:0 0 0 0 rgba(30,142,62,0)}
+}
+.map-wrap{margin-top:20px;border:1px solid var(--line-strong);border-radius:16px;overflow:hidden;background:var(--sage);box-shadow:0 4px 18px rgba(20,35,27,.03)}
+.map-wrap iframe{width:100%;height:240px;border:0;display:block;filter:saturate(.65) contrast(.96)}
+.map-link{display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-size:13px;color:var(--ink-soft)}
+.map-link:hover{color:var(--pine);text-decoration:underline;text-underline-offset:4px}
+.map-link svg{width:13px;height:13px}
+.form-panel{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:38px;box-shadow:0 20px 50px rgba(20,35,27,.07)}
+.form-panel h3{font-family:var(--serif);font-size:24px;font-weight:550;margin-bottom:6px}
+.form-panel>p{font-size:14px;color:var(--ink-soft);margin-bottom:26px}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
+.field input,.field select,.field textarea{
+  width:100%;padding:13px 15px;font-family:inherit;font-size:15.5px;color:var(--ink);
+  border:1px solid rgba(20,35,27,.25);border-radius:10px;background:var(--paper-2);
+  transition:border-color .25s,box-shadow .25s;
+}
+.field textarea{resize:vertical;min-height:120px}
+.field select{
+  appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23123B2E' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 15px center;padding-right:42px;
+}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--pine);box-shadow:0 0 0 4px rgba(18,59,46,.1);background:var(--white)}
+.field.invalid input,.field.invalid textarea,.field.invalid select{border-color:var(--terra);box-shadow:0 0 0 4px rgba(180,83,42,.1)}
+.f-err{display:block;margin-top:6px;font-size:12.5px;color:var(--terra);min-height:0}
+.form-panel .btn{width:100%;justify-content:center;margin-top:6px}
+.f-note{margin-top:14px;font-size:12.5px;color:var(--ink-soft);text-align:center}
+.success{padding:60px 20px;text-align:center}
+.success-icon{width:66px;height:66px;border:1.5px solid var(--pine);border-radius:50%;display:grid;place-items:center;margin:0 auto 22px;color:var(--pine);animation:pop .5s var(--ease)}
+.success-icon svg{width:28px;height:28px}
+@keyframes pop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
+.success h3{font-family:var(--serif);font-size:26px;font-weight:550}
+.success p{margin:12px auto 26px;font-size:14.5px;color:var(--ink-soft);max-width:38ch}
+
+/* ============ Toasts ============ */
+#toasts{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:90;display:flex;flex-direction:column;gap:10px;align-items:center;pointer-events:none}
+.toast{
+  background:var(--pine-deep);color:var(--paper);font-size:14px;padding:13px 22px;border-radius:12px;
+  box-shadow:0 14px 34px rgba(10,36,27,.35);opacity:0;transform:translateY(14px);
+  transition:opacity .35s var(--ease),transform .35s var(--ease);max-width:min(90vw,480px);text-align:center;
+}
+.toast.show{opacity:1;transform:none}
+
+/* ============ Responsive ============ */
+@media (max-width:1024px){
+  .nav-cta .btn{display:none}
+  .dark-grid,.luck-grid{grid-template-columns:1fr;gap:52px}
+  .hero-grid{grid-template-columns:1fr;gap:48px}
+  .hero-art{max-width:420px}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:44px}
+}
+@media (max-width:880px){
+  .nav{display:none}
+  .burger{display:block}
+  .topbar-right a:last-child{display:none}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .stat{border-left:0;border-top:1px solid var(--line);padding:22px 0 4px}
+  .stat:nth-child(-n+2){border-top:0;padding-top:0}
+  .section{padding:78px 0}
+}
+@media (max-width:820px){
+  .p-labels{display:none}
+  .p-labels+.prow{border-top:0}
+  .prow-head{grid-template-columns:minmax(0,1fr) auto 38px;gap:14px;padding-block:18px}
+  .p-idx,.p-cat,.p-pack{display:none}
+  .prow-detail{grid-template-columns:1fr;gap:22px;padding-left:8px}
+  .contact-grid{grid-template-columns:1fr;gap:52px}
+  .cat-band{padding:40px 32px}
+}
+@media (max-width:720px){
+  .commit-grid{grid-template-columns:1fr;gap:0}
+  .acc-head{grid-template-columns:42px 1fr 40px}
+  .acc-content{padding-left:62px}
+  .f-row{grid-template-columns:1fr}
+  .form-panel{padding:26px 22px}
+  .foot-grid{grid-template-columns:1fr;gap:36px;padding-bottom:40px}
+  .topbar-right{display:none}
+  .topbar .container{justify-content:center}
+  .section-head{margin-bottom:40px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ring,.caps-float,.mq-track,.plaque-dot::before{animation:none!important}
+  [data-reveal],.hline span,.hfade,.draw,.cap-fill,.cap-print{transition:none!important;animation:none!important;opacity:1!important;transform:none!important;stroke-dashoffset:0!important}
+  #app,.btn,.tabs button{transition:none!important}
+}
+</style>
+</head>
+<body class="is-loading">
+
+<!-- Preloader -->
+<div id="loader" aria-hidden="true">
+  <div class="loader-inner">
+    <div class="loader-word">
+      <span style="animation-delay:.05s">S</span><span style="animation-delay:.09s">e</span><span style="animation-delay:.13s">v</span><span style="animation-delay:.17s">i</span><span style="animation-delay:.21s">o</span><span style="animation-delay:.25s">r</span><span style="animation-delay:.29s">a</span>
+    </div>
+    <div class="loader-sub">Pharma · Lucknow</div>
+    <div class="loader-bar"><i></i></div>
+  </div>
+</div>
+
+<!-- Toasts -->
+<div id="toasts" role="status" aria-live="polite"></div>
+
+<!-- Utility topbar -->
+<div class="topbar">
+  <div class="container">
+    <span style="display:inline-flex;align-items:center;gap:7px"><i data-lucide="map-pin"></i>Gomti Nagar, Lucknow · Uttar Pradesh 226010</span>
+    <span class="topbar-right">
+      <a href="tel:+919452948453"><i data-lucide="phone"></i>+91 94529 48453</a>
+      <a href="mailto:info@seviorapharma.com"><i data-lucide="mail"></i>info@seviorapharma.com</a>
+    </span>
+  </div>
+</div>
+
+<!-- Header -->
+<div class="navwrap" id="navwrap">
+  <div class="container navbar">
+    <a class="brand" href="#/" aria-label="Seviora Pharma — Home">
+      <img src="logo.png" alt="Seviora Pharma Private Limited" class="brand-logo" width="138" height="63">
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#/" data-nav="home">Home</a>
+      <a href="#/products" data-nav="products">Our Products</a>
+      <a href="#/contact" data-nav="contact">Contact Us</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="btn btn-primary btn-sm" data-catalogue>Request catalogue</button>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile menu -->
+<div class="mmenu" id="mmenu">
+  <nav aria-label="Mobile">
+    <a href="#/" data-nav="home"><small>01</small>Home<i data-lucide="arrow-up-right"></i></a>
+    <a href="#/products" data-nav="products"><small>02</small>Our Products<i data-lucide="arrow-up-right"></i></a>
+    <a href="#/contact" data-nav="contact"><small>03</small>Contact Us<i data-lucide="arrow-up-right"></i></a>
+  </nav>
+  <div class="mmenu-foot">
+    <a href="tel:+919452948453" style="display:block;color:inherit;margin-bottom:6px">+91 94529 48453</a>
+    <a href="mailto:info@seviorapharma.com" style="display:block;color:inherit;margin-bottom:6px">info@seviorapharma.com</a>
+    <span>Gomti Nagar, Lucknow, UP 226010</span>
+  </div>
+</div>
+
+<main id="app">
+
+  <!-- ================= HOME ================= -->
+  <section class="active" id="page-home">
+    <div class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <span class="eyebrow hfade" style="--d:.15s">Seviora Pharma · Lucknow, U.P.</span>
+            <h1 style="margin-top:24px">
+              <span class="hline"><span style="--d:.2s">Quality medicines.</span></span>
+              <span class="hline"><span style="--d:.32s">Reliable supply.</span></span>
+              <span class="hline"><span style="--d:.44s"><em>Trusted care.</em></span></span>
+            </h1>
+            <p class="hero-sub hfade" style="--d:.6s">Seviora Pharma is a Lucknow-based pharmaceutical company delivering quality medicines, medical goods and solutions to hospitals, clinics and chemists across Uttar Pradesh.</p>
+            <div class="hero-ctas hfade" style="--d:.74s">
+              <a class="btn btn-primary" href="#/products">Explore products <i data-lucide="arrow-right"></i></a>
+              <a class="btn btn-ghost" href="#/contact">Talk to our team</a>
+            </div>
+          </div>
+          <div class="hero-art hfade" style="--d:.5s">
+            <!-- Signature illustration: a capsule drawn like a technical reference sheet -->
+            <svg class="capsule-svg" viewBox="0 0 560 560" fill="none" role="img" aria-label="Technical line drawing of a pharmaceutical capsule">
+              <circle cx="280" cy="280" r="228" fill="#E9EFE6"/>
+              <circle class="ring" cx="280" cy="280" r="264" stroke="#123B2E" stroke-opacity=".35" stroke-dasharray="2 9" stroke-linecap="round"/>
+              <g stroke="#123B2E" stroke-opacity=".4">
+                <path d="M40 32v16M32 40h16"/><path d="M520 32v16M512 40h16"/>
+                <path d="M40 512v16M32 520h16"/><path d="M520 512v16M512 520h16"/>
+              </g>
+              <g class="caps-float">
+                <g transform="rotate(-30 280 280)">
+                  <path class="cap-fill" d="M170 220H280V340H170A60 60 0 0 1 170 220Z" fill="#CFE0D2"/>
+                  <text class="cap-print" x="336" y="298">SEVIORA</text>
+                  <path class="draw d1" d="M170 220H390A60 60 0 0 1 390 340H170A60 60 0 0 1 170 220Z" stroke="#123B2E" stroke-width="2.5" pathLength="1"/>
+                  <path class="draw d2" d="M280 220V340" stroke="#123B2E" stroke-width="2" pathLength="1"/>
+                  <path class="draw d3" d="M320 243Q352 251 371 272" stroke="#123B2E" stroke-width="2" stroke-linecap="round" pathLength="1"/>
+                  <path class="draw d4" d="M304 236Q317 239 328 246" stroke="#123B2E" stroke-width="2" stroke-linecap="round" pathLength="1"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stat strip -->
+      <div class="container stats">
+        <div class="stats-grid">
+          <div class="stat" data-reveal style="--d:0s"><div class="stat-num"><span data-count="400" data-suffix="+">0</span></div><div class="stat-label">SKUs in our active catalogue</div></div>
+          <div class="stat" data-reveal style="--d:.1s"><div class="stat-num"><span data-count="120" data-suffix="+">0</span></div><div class="stat-label">Healthcare partners served</div></div>
+          <div class="stat" data-reveal style="--d:.2s"><div class="stat-num"><span data-count="24" data-suffix="h">0</span></div><div class="stat-label">Average dispatch time</div></div>
+          <div class="stat" data-reveal style="--d:.3s"><div class="stat-num"><span data-count="100" data-suffix="%">0</span></div><div class="stat-label">Batch-level traceability</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust marquee -->
+    <div class="marquee" aria-hidden="true">
+      <div class="mq-track">
+        <div class="mq-group">
+          <span>WHO-GMP aligned sourcing</span><i class="mq-dot"></i><span>ISO 9001:2015 processes</span><i class="mq-dot"></i>
+          <span>Validated 2–8 °C cold chain</span><i class="mq-dot"></i><span>UP Drug Licence · Lucknow</span><i class="mq-dot"></i>
+          <span>GST-registered supplier</span><i class="mq-dot"></i><span>400+ active SKUs</span><i class="mq-dot"></i>
+          <span>Same-week dispatch</span><i class="mq-dot"></i><span>Institutional empanelment</span><i class="mq-dot"></i>
+        </div>
+        <div class="mq-group">
+          <span>WHO-GMP aligned sourcing</span><i class="mq-dot"></i><span>ISO 9001:2015 processes</span><i class="mq-dot"></i>
+          <span>Validated 2–8 °C cold chain</span><i class="mq-dot"></i><span>UP Drug Licence · Lucknow</span><i class="mq-dot"></i>
+          <span>GST-registered supplier</span><i class="mq-dot"></i><span>400+ active SKUs</span><i class="mq-dot"></i>
+          <span>Same-week dispatch</span><i class="mq-dot"></i><span>Institutional empanelment</span><i class="mq-dot"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divisions -->
+    <div class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">01 · What we supply</span>
+            <h2 class="h-serif">Four divisions, one standard of quality.</h2>
+          </div>
+          <p class="section-lede">From branded formulations to ward-level consumables, every line we stock is audited at source and documented before dispatch.</p>
+        </div>
+        <div data-acc>
+          <div class="acc-item" data-reveal>
+            <button class="acc-head" aria-expanded="false">
+              <span class="acc-num">/ 01</span>
+              <span class="acc-title">Pharmaceutical Distribution</span>
+              <span class="acc-icon"><i data-lucide="pill"></i></span>
+            </button>
+            <div class="acc-body"><div class="acc-body-in"><div class="acc-content">
+              <p>Branded generics and ethical formulations across major therapeutic segments, supplied in retail strips and institutional bulk packs with full batch documentation.</p>
+              <div class="acc-tags"><span>Antibiotics</span><span>Cardiology</span><span>Gastroenterology</span><span>Analgesics</span><span>Diabetes care</span></div>
+            </div></div></div>
+          </div>
+          <div class="acc-item" data-reveal>
+            <button class="acc-head" aria-expanded="false">
+              <span class="acc-num">/ 02</span>
+              <span class="acc-title">Medical Consumables &amp; Disposables</span>
+              <span class="acc-icon"><i data-lucide="package"></i></span>
+            </button>
+            <div class="acc-body"><div class="acc-body-in"><div class="acc-content">
+              <p>Everyday ward essentials — gloves, syringes, masks, IV cannulae and PPE — held in buffer stock so clinics never wait on a replenishment cycle.</p>
+              <div class="acc-tags"><span>Gloves</span><span>Syringes</span><span>Masks</span><span>IV sets</span><span>PPE kits</span></div>
+            </div></div></div>
+          </div>
+          <div class="acc-item" data-reveal>
+            <button class="acc-head" aria-expanded="false">
+              <span class="acc-num">/ 03</span>
+              <span class="acc-title">Surgical, Devices &amp; Diagnostics</span>
+              <span class="acc-icon"><i data-lucide="stethoscope"></i></span>
+            </button>
+            <div class="acc-body"><div class="acc-body-in"><div class="acc-content">
+              <p>Calibration-checked devices and rapid diagnostics for OPD setups, nursing homes and pathology labs, with consumable strips stocked on a standing schedule.</p>
+              <div class="acc-tags"><span>Glucometers</span><span>Oximeters</span><span>Thermometers</span><span>Rapid tests</span></div>
+            </div></div></div>
+          </div>
+          <div class="acc-item" data-reveal>
+            <button class="acc-head" aria-expanded="false">
+              <span class="acc-num">/ 04</span>
+              <span class="acc-title">Institutional &amp; Hospital Supply</span>
+              <span class="acc-icon"><i data-lucide="warehouse"></i></span>
+            </button>
+            <div class="acc-body"><div class="acc-body-in"><div class="acc-content">
+              <p>Tender-ready documentation, scheduled replenishment calendars and a named account manager for hospitals, CHCs and government empanelments.</p>
+              <div class="acc-tags"><span>Bulk tenders</span><span>Scheduled supply</span><span>Dedicated KAM</span><span>Credit terms</span></div>
+            </div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Commitments -->
+    <div class="section commit">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">02 · Our commitments</span>
+            <h2 class="h-serif">Why providers stay with Seviora.</h2>
+          </div>
+        </div>
+        <div class="commit-grid">
+          <div class="commit-item" data-reveal>
+            <div class="commit-icon"><i data-lucide="qr-code"></i></div>
+            <div><span class="c-num">01</span><h3>Batch-level traceability</h3><p>Every carton carries a verifiable batch and expiry record, retrievable from our desk within minutes — not days.</p></div>
+          </div>
+          <div class="commit-item" data-reveal>
+            <div class="commit-icon"><i data-lucide="thermometer-snowflake"></i></div>
+            <div><span class="c-num">02</span><h3>Validated cold chain</h3><p>Insulated 2–8 °C lanes with data-logger verification for insulin, vaccines and temperature-sensitive lines.</p></div>
+          </div>
+          <div class="commit-item" data-reveal>
+            <div class="commit-icon"><i data-lucide="file-check-2"></i></div>
+            <div><span class="c-num">03</span><h3>Documentation on demand</h3><p>Licences, certificates of analysis and GST invoices travel with the consignment — you never chase paperwork.</p></div>
+          </div>
+          <div class="commit-item" data-reveal>
+            <div class="commit-icon"><i data-lucide="truck"></i></div>
+            <div><span class="c-num">04</span><h3>24–48 hour dispatch</h3><p>Stock SKUs leave our Gomti Nagar warehouse within two working days of a confirmed purchase order.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quality dark band -->
+    <div class="section dark-band">
+      <div class="container dark-grid">
+        <div class="dark-copy" data-reveal>
+          <span class="eyebrow">03 · Quality &amp; compliance</span>
+          <h2 class="h-serif">Every batch, verified before it ships.</h2>
+          <p>Our QC desk audits each supplier, samples every incoming consignment and releases stock only against a certificate of analysis. Pharmacies receive the paperwork with the invoice — never after it.</p>
+          <ul class="checks">
+            <li><i data-lucide="check"></i>Two-stage incoming inspection</li>
+            <li><i data-lucide="check"></i>Certificate of analysis with every batch</li>
+            <li><i data-lucide="check"></i>Recall protocol tested quarterly</li>
+          </ul>
+        </div>
+        <div class="dark-stats" data-reveal style="--d:.15s">
+          <div class="dstat"><div class="dstat-num"><span data-count="99.2" data-decimals="1" data-suffix="%">0</span></div><div class="dstat-label">Order fill rate, trailing twelve months</div></div>
+          <div class="dstat"><div class="dstat-num"><span data-count="40" data-suffix="+">0</span></div><div class="dstat-label">Districts of Uttar Pradesh served</div></div>
+          <div class="dstat"><div class="dstat-num"><span data-count="12" data-suffix="+">0</span></div><div class="dstat-label">Empanelled hospitals &amp; nursing homes</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lucknow -->
+    <div class="section lucknow">
+      <div class="container luck-grid">
+        <div class="luck-copy" data-reveal>
+          <span class="eyebrow">04 · Our base</span>
+          <h2 class="h-serif">Rooted in Lucknow, supplying all 75 districts.</h2>
+          <p>From our Gomti Nagar warehouse we coordinate same-week delivery to Kanpur, Varanasi, Prayagraj, Gorakhpur, Bareilly and every district headquarters in between — with a named account manager for institutional buyers.</p>
+          <address class="luck-addr">
+            <i data-lucide="map-pin"></i>
+            <span><strong>Seviora Pharma Pvt. Ltd.</strong><br>Plot 12, Vibhav Khand, Gomti Nagar,<br>Lucknow, Uttar Pradesh 226010</span>
+          </address>
+        </div>
+        <div class="plaque" data-reveal style="--d:.15s">
+          <div class="plaque-dot"><i></i></div>
+          <div class="plaque-city">Lucknow</div>
+          <div class="plaque-coords">26.8467° N · 80.9462° E</div>
+          <p class="plaque-note">Warehouse, QC desk and institutional order desk — all under one roof.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="section cta">
+      <div class="container cta-inner">
+        <span class="eyebrow" style="justify-content:center" data-reveal>Get in touch</span>
+        <h2 class="h-serif" data-reveal style="--d:.08s;max-width:none">Need a dependable supply partner in Uttar Pradesh?</h2>
+        <p data-reveal style="--d:.16s">Send an enquiry about pricing, catalogue or empanelment — our team replies within one working day.</p>
+        <div class="cta-btns" data-reveal style="--d:.24s">
+          <a class="btn btn-primary" href="#/contact">Contact us <i data-lucide="arrow-right"></i></a>
+          <button class="btn btn-ghost" data-catalogue>Request catalogue</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRODUCTS ================= -->
+  <section id="page-products">
+    <div class="container page-head">
+      <span class="eyebrow" data-reveal>Seviora Pharma · Catalogue</span>
+      <h1 class="h-serif" data-reveal style="--d:.08s">Our Products</h1>
+      <p class="lede" data-reveal style="--d:.16s">A curated selection from our active catalogue. Compositions and pack details are listed for healthcare professionals — full documentation is available on request.</p>
+    </div>
+
+    <div class="container" style="padding-bottom:110px">
+      <div class="toolbar" data-reveal>
+        <div class="tabs" role="tablist" aria-label="Product categories">
+          <button class="active" data-cat="All">All</button>
+          <button data-cat="Pharmaceuticals">Pharmaceuticals</button>
+          <button data-cat="Nutraceuticals">Nutraceuticals</button>
+          <button data-cat="Consumables">Consumables</button>
+          <button data-cat="Diagnostics">Diagnostics</button>
+        </div>
+        <div class="search">
+          <i data-lucide="search"></i>
+          <input type="text" id="psearch" placeholder="Search products or compositions…" aria-label="Search products">
+        </div>
+      </div>
+
+      <div class="list-meta" data-reveal>
+        <span id="pcount">Showing 0 of 0 SKUs</span>
+        <span style="display:none" id="phint">Click any row for composition &amp; storage</span>
+      </div>
+
+      <div class="p-labels" data-reveal>
+        <span></span><span>Product</span><span>Category</span><span>Pack</span><span>Class</span><span></span>
+      </div>
+
+      <div class="plist" id="plist"></div>
+
+      <div class="cat-band" data-reveal>
+        <div>
+          <h3>Need the full catalogue?</h3>
+          <p>Over 400 SKUs — including surgical lines, OTC brands and institutional packs — are listed in our printed and digital catalogue.</p>
+        </div>
+        <button class="btn btn-light" data-catalogue>Request full catalogue <i data-lucide="arrow-right"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="page-contact">
+    <div class="container page-head">
+      <span class="eyebrow" data-reveal>Seviora Pharma · Lucknow</span>
+      <h1 class="h-serif" data-reveal style="--d:.08s">Contact Us</h1>
+      <p class="lede" data-reveal style="--d:.16s">Tell us what you need — product pricing, a catalogue, or a distribution conversation. We respond within one working day.</p>
+    </div>
+
+    <div class="container contact-grid">
+      <div data-reveal>
+        <div class="contact-cards">
+          <!-- Email Card -->
+          <div class="c-card">
+            <div class="c-card-icon"><i data-lucide="mail"></i></div>
+            <div class="c-card-main">
+              <div class="c-card-lbl">
+                <span>Email</span>
+                <span class="c-card-status">Replies &lt; 1 day</span>
+              </div>
+              <a href="mailto:info@seviorapharma.com" class="c-card-val">info@seviorapharma.com</a>
+              <p class="c-card-desc">For institutional supply, hospital orders and distribution queries.</p>
+              <div class="c-card-actions">
+                <a href="mailto:info@seviorapharma.com" class="c-btn c-btn-primary"><i data-lucide="send"></i> Write Email</a>
+                <button type="button" class="c-btn c-btn-ghost copy-trigger" data-copy="info@seviorapharma.com"><i data-lucide="copy"></i> Copy</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phone Card -->
+          <div class="c-card">
+            <div class="c-card-icon"><i data-lucide="phone"></i></div>
+            <div class="c-card-main">
+              <div class="c-card-lbl">
+                <span>Phone</span>
+                <span class="c-card-status">Direct Desk</span>
+              </div>
+              <a href="tel:+919452948453" class="c-card-val">+91 94529 48453</a>
+              <p class="c-card-desc">Direct line to our Lucknow distribution and order assistance team.</p>
+              <div class="c-card-actions">
+                <a href="tel:+919452948453" class="c-btn c-btn-primary"><i data-lucide="phone-call"></i> Call Now</a>
+                <a href="https://wa.me/919452948453?text=Hello%20Seviora%20Pharma%2C%20I%20would%20like%20to%20enquire%20about%20your%20products." target="_blank" rel="noopener" class="c-btn c-btn-wa"><i data-lucide="message-circle"></i> WhatsApp</a>
+                <button type="button" class="c-btn c-btn-ghost copy-trigger" data-copy="+91 94529 48453"><i data-lucide="copy"></i> Copy</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Location Card -->
+          <div class="c-card">
+            <div class="c-card-icon"><i data-lucide="map-pin"></i></div>
+            <div class="c-card-main">
+              <div class="c-card-lbl">
+                <span>Location</span>
+                <span class="c-card-status">Registered Office</span>
+              </div>
+              <div class="c-card-val">Lucknow, Uttar Pradesh</div>
+              <p class="c-card-desc">Plot 12, Vibhav Khand, Gomti Nagar, Lucknow, Uttar Pradesh 226010</p>
+              <div class="c-card-actions">
+                <a href="https://www.openstreetmap.org/?mlat=26.8467&amp;mlon=80.9462#map=15/26.8467/80.9462" target="_blank" rel="noopener" class="c-btn c-btn-primary"><i data-lucide="map"></i> View Map</a>
+                <button type="button" class="c-btn c-btn-ghost copy-trigger" data-copy="Plot 12, Vibhav Khand, Gomti Nagar, Lucknow, Uttar Pradesh 226010"><i data-lucide="copy"></i> Copy Address</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Operating Hours Card -->
+          <div class="c-card">
+            <div class="c-card-icon"><i data-lucide="clock"></i></div>
+            <div class="c-card-main">
+              <div class="c-card-lbl">
+                <span>Operating Hours</span>
+                <span class="c-badge-live" id="office-status-badge"><span class="c-live-dot"></span> Open now</span>
+              </div>
+              <div class="c-card-subval">Monday – Saturday · 9:30 AM – 6:30 PM IST</div>
+              <p class="c-card-subnote">Sunday: Closed for dispatches · Enquiries received will be attended Monday morning.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="map-wrap">
+          <iframe title="Seviora Pharma location on OpenStreetMap" loading="lazy"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=80.9250%2C26.8290%2C80.9720%2C26.8640&amp;layer=mapnik&amp;marker=26.8467%2C80.9462"></iframe>
+        </div>
+        <a class="map-link" href="https://www.openstreetmap.org/?mlat=26.8467&amp;mlon=80.9462#map=15/26.8467/80.9462" target="_blank" rel="noopener">Open location in OpenStreetMap <i data-lucide="arrow-up-right"></i></a>
+      </div>
+
+      <div class="form-panel" data-reveal style="--d:.12s">
+        <form id="cform" novalidate>
+          <h3>Send an enquiry</h3>
+          <p>All fields marked * are required.</p>
+          <div class="f-row">
+            <div class="field">
+              <label for="f-name">Full name *</label>
+              <input type="text" id="f-name" autocomplete="name" placeholder="Dr. Aditi Verma">
+              <span class="f-err"></span>
+            </div>
+            <div class="field">
+              <label for="f-org">Organisation</label>
+              <input type="text" id="f-org" autocomplete="organization" placeholder="Hospital, clinic or pharmacy">
+              <span class="f-err"></span>
+            </div>
+          </div>
+          <div class="f-row">
+            <div class="field">
+              <label for="f-email">Email *</label>
+              <input type="email" id="f-email" autocomplete="email" placeholder="you@example.com">
+              <span class="f-err"></span>
+            </div>
+            <div class="field">
+              <label for="f-phone">Phone *</label>
+              <input type="tel" id="f-phone" autocomplete="tel" placeholder="+91 ·····">
+              <span class="f-err"></span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-subject">Subject</label>
+            <select id="f-subject">
+              <option>General enquiry</option>
+              <option>Product enquiry</option>
+              <option>Catalogue request</option>
+              <option>Distribution partnership</option>
+            </select>
+            <span class="f-err"></span>
+          </div>
+          <div class="field">
+            <label for="f-message">Message *</label>
+            <textarea id="f-message" placeholder="Tell us about your requirements — products, quantities, city…"></textarea>
+            <span class="f-err"></span>
+          </div>
+          <button type="submit" class="btn btn-primary" id="f-submit"><span class="btn-label">Send enquiry</span> <i data-lucide="arrow-right"></i></button>
+          <p class="f-note">We never share your details. Typical response time: under one working day.</p>
+        </form>
+
+        <div class="success" id="csuccess" hidden>
+          <div class="success-icon"><i data-lucide="check"></i></div>
+          <h3>Enquiry received.</h3>
+          <p>Thank you for writing to Seviora Pharma. Our team typically responds within one working day.</p>
+          <button class="btn btn-ghost btn-sm" id="c-again">Send another message</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="container foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="#/" aria-label="Seviora Pharma — Home">
+        <img src="logo-white.png" alt="Seviora Pharma Private Limited" class="brand-logo brand-logo-foot" width="138" height="63">
+      </a>
+      <p>A trusted pharmaceutical company delivering quality medicines, medical goods and solutions to healthcare providers across Uttar Pradesh.</p>
+      <span class="foot-domain">seviorapharma.com</span>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul class="foot-links">
+        <li><a href="#/">Home</a></li>
+        <li><a href="#/products">Our Products</a></li>
+        <li><a href="#/contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Divisions</h4>
+      <ul class="foot-links">
+        <li><a href="#/products">Pharmaceutical distribution</a></li>
+        <li><a href="#/products">Medical consumables</a></li>
+        <li><a href="#/products">Devices &amp; diagnostics</a></li>
+        <li><a href="#/products">Institutional supply</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reach us</h4>
+      <address class="foot-contact">
+        Plot 12, Vibhav Khand, Gomti Nagar,<br>
+        Lucknow, Uttar Pradesh 226010<br>
+        <a href="tel:+919452948453">+91 94529 48453</a>
+        <a href="mailto:info@seviorapharma.com">info@seviorapharma.com</a>
+        Mon – Sat · 9:30 AM – 6:30 PM IST
+      </address>
+    </div>
+  </div>
+  <div class="container foot-bottom">
+    <p>© <span id="yr"></span> Seviora Pharma Pvt. Ltd. · All rights reserved. Product compositions listed for healthcare professionals.</p>
+    <div class="foot-right">
+      <span>seviorapharma.com</span>
+      <button id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  const $  = (s,root)=> (root||document).querySelector(s);
+  const $$ = (s,root)=> Array.from((root||document).querySelectorAll(s));
+  const refreshIcons = ()=>{ try{ if(typeof lucide!=="undefined") lucide.createIcons(); }catch(e){} };
+
+  /* ---------- Toasts ---------- */
+  function toast(msg){
+    const w = $("#toasts");
+    const t = document.createElement("div");
+    t.className = "toast"; t.textContent = msg;
+    w.appendChild(t);
+    requestAnimationFrame(()=> t.classList.add("show"));
+    setTimeout(()=>{ t.classList.remove("show"); setTimeout(()=> t.remove(), 380); }, 3400);
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+    });
+  },{threshold:.12, rootMargin:"0px 0px -40px 0px"});
+  function bindReveals(root){
+    $$("[data-reveal]", root).forEach(el=>{
+      if(el.classList.contains("in") || el.dataset.bound) return;
+      el.dataset.bound = "1"; io.observe(el);
+    });
+  }
+
+  /* ---------- Counters ---------- */
+  function animateCount(el){
+    const target = parseFloat(el.dataset.count);
+    const dec = parseInt(el.dataset.decimals||"0",10);
+    const suf = el.dataset.suffix||"";
+    const dur = 1500, t0 = performance.now();
+    (function tick(t){
+      const p = Math.min(1,(t-t0)/dur);
+      const e = 1-Math.pow(1-p,3);
+      const v = dec>0 ? (target*e).toFixed(dec) : String(Math.round(target*e));
+      el.textContent = v+suf;
+      if(p<1) requestAnimationFrame(tick);
+    })(t0);
+  }
+  const cio = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ animateCount(e.target); cio.unobserve(e.target); } });
+  },{threshold:.5});
+
+  /* ---------- Product data ---------- */
+  const PRODUCTS = [
+    {name:"Cefsev-500", generic:"Cefuroxime Axetil 500 mg", cat:"Pharmaceuticals", form:"Tablet · Alu-Alu", pack:"10 × 10 strip", tag:"Rx",
+     comp:"Cefuroxime Axetil IP 500 mg", storage:"Store below 25 °C, protect from moisture.",
+     desc:"Second-generation cephalosporin for respiratory, ENT and urinary tract infections, sourced from WHO-GMP aligned facilities."},
+    {name:"Amoxysev 500", generic:"Amoxicillin 500 mg", cat:"Pharmaceuticals", form:"Capsule", pack:"10 × 10 strip", tag:"Rx",
+     comp:"Amoxicillin Trihydrate IP 500 mg", storage:"Store below 25 °C.",
+     desc:"Broad-spectrum penicillin-class antibiotic supplied to hospitals and nursing homes in retail and bulk packs."},
+    {name:"Azysev-500", generic:"Azithromycin 500 mg", cat:"Pharmaceuticals", form:"Tablet · Alu-Alu", pack:"3 × 10 strip", tag:"Rx",
+     comp:"Azithromycin Dihydrate IP 500 mg", storage:"Store below 30 °C.",
+     desc:"Three-day macrolide course for respiratory and skin infections, with steady institutional demand."},
+    {name:"Pantosev-40", generic:"Pantoprazole 40 mg (enteric-coated)", cat:"Pharmaceuticals", form:"Tablet · EC", pack:"10 × 14 strip", tag:"Rx",
+     comp:"Pantoprazole Sodium IP 40 mg", storage:"Store below 25 °C.",
+     desc:"Proton-pump inhibitor for acid-peptic disorders — one of our highest-velocity SKUs."},
+    {name:"Sevidol 650", generic:"Paracetamol 650 mg", cat:"Pharmaceuticals", form:"Tablet", pack:"10 × 14 strip", tag:"OTC",
+     comp:"Paracetamol IP 650 mg", storage:"Store below 30 °C, away from direct light.",
+     desc:"First-line analgesic–antipyretic, available for counter sale as well as institutional supply."},
+    {name:"Metforsev 500", generic:"Metformin HCl 500 mg", cat:"Pharmaceuticals", form:"Tablet · film-coated", pack:"10 × 15 strip", tag:"Rx",
+     comp:"Metformin Hydrochloride IP 500 mg", storage:"Store below 30 °C.",
+     desc:"First-line oral antidiabetic with steady monthly volumes for clinics and diabetic centres."},
+    {name:"Telmisev-40", generic:"Telmisartan 40 mg", cat:"Pharmaceuticals", form:"Tablet", pack:"10 × 14 strip", tag:"Rx",
+     comp:"Telmisartan IP 40 mg", storage:"Store below 30 °C.",
+     desc:"Angiotensin-receptor blocker for hypertension management across long-term prescriptions."},
+    {name:"Sevibact-CV 625", generic:"Amoxicillin 500 mg + Clavulanic Acid 125 mg", cat:"Pharmaceuticals", form:"Tablet · Alu-Alu", pack:"10 × 10 strip", tag:"Rx",
+     comp:"Amoxicillin Trihydrate IP 500 mg + Clavulanic Acid IP 125 mg", storage:"Store below 25 °C in a dry place.",
+     desc:"Beta-lactam / beta-lactamase-inhibitor combination for resistant infections."},
+    {name:"Sevi-D3 60K", generic:"Cholecalciferol 60,000 IU", cat:"Nutraceuticals", form:"Softgel capsule", pack:"Box of 4 softgels", tag:"OTC",
+     comp:"Cholecalciferol (Vitamin D3) IP 60,000 IU", storage:"Store below 25 °C.",
+     desc:"Weekly-dose vitamin D3 for deficiency correction, dispensed on physician advice."},
+    {name:"Calcisev-D3", generic:"Calcium Carbonate 500 mg + Vitamin D3 250 IU", cat:"Nutraceuticals", form:"Tablet", pack:"10 × 15 strip", tag:"OTC",
+     comp:"Calcium Carbonate IP 500 mg + Cholecalciferol IP 250 IU", storage:"Store below 30 °C.",
+     desc:"Bone-health supplement for orthopaedic, gynaecology and geriatric patients."},
+    {name:"Sevimust", generic:"Multivitamin & multimineral (softgel)", cat:"Nutraceuticals", form:"Softgel capsule", pack:"10 × 10 strip", tag:"OTC",
+     comp:"Vitamins A, B-complex, C, D3, E, zinc & selenium (per FSSAI norms)", storage:"Store below 25 °C.",
+     desc:"Daily multivitamin with 21 actives — a dependable OTC anchor SKU for pharmacies."},
+    {name:"Nitrile Examination Gloves", generic:"Non-sterile, powder-free, textured fingertips", cat:"Consumables", form:"Nitrile · 5.0 g", pack:"Box of 100 (S–XL)", tag:"General",
+     comp:"Nitrile butadiene rubber, powder-free", storage:"Cool, dry place away from direct sunlight.",
+     desc:"Latex-free examination gloves with AQL 1.5 pinhole rating, supplied in dispenser boxes of 100."},
+    {name:"3-Ply Surgical Masks", generic:"Type IIR · ≥ 98% bacterial filtration", cat:"Consumables", form:"3-ply · earloop", pack:"Box of 50", tag:"General",
+     comp:"PP spun-bond / melt-blown / PP layers", storage:"Sealed store below 30 °C.",
+     desc:"Fluid-resistant surgical masks with adjustable nose bridge; every batch tested for BFE ≥ 98%."},
+    {name:"Disposable Syringe 5 ml", generic:"Luer-lock mount, 21 G needle", cat:"Consumables", form:"Sterile · single-use", pack:"Box of 100", tag:"General",
+     comp:"Polypropylene barrel, nitrile plunger stopper", storage:"Keep sterile packaging intact; single use only.",
+     desc:"EO-sterilised syringes with clear barrel graduations for clinics and wards."},
+    {name:"IV Cannula 20 G", generic:"With injection port & flexible wings", cat:"Consumables", form:"Sterile · single-use", pack:"Box of 50", tag:"General",
+     comp:"FEP catheter, polypropylene hub", storage:"Store in dry, dust-free conditions.",
+     desc:"Peripheral IV cannulae with radio-opaque catheter and flashback chamber."},
+    {name:"PPE Kit (SITRA-approved)", generic:"Coverall, shoe covers, cap & 2 masks", cat:"Consumables", form:"Kit · single-use", pack:"Pack of 10 kits", tag:"General",
+     comp:"Laminated non-woven fabric, 60 GSM", storage:"Cool, dry store.",
+     desc:"Full-body PPE kits tested to SITRA / ISO 16603 standards for isolation wards."},
+    {name:"SevioCheck Glucometer", generic:"Blood glucose monitoring system", cat:"Diagnostics", form:"Device + 25 strips", pack:"Kit", tag:"OTC",
+     comp:"Glucose oxidase test strips, lancing device, lancets", storage:"Device 5–40 °C; strips 2–30 °C.",
+     desc:"Compact glucometer with 5-second readings and 480-result memory; strips stocked separately."},
+    {name:"Fingertip Pulse Oximeter", generic:"SpO₂ & pulse-rate monitor, OLED display", cat:"Diagnostics", form:"Device", pack:"Unit", tag:"OTC",
+     comp:"ABS housing, LED sensor array", storage:"−10 °C to 40 °C, 10–90% RH.",
+     desc:"Clinic-grade oximeter with perfusion index and auto power-off; each unit calibration-checked."}
+  ];
+
+  /* ---------- Product list render ---------- */
+  const pstate = { cat:"All", q:"" };
+  const listEl = $("#plist"), countEl = $("#pcount");
+  let swapTimer = null;
+
+  function tagClass(t){ return t==="Rx" ? "t-rx" : t==="OTC" ? "t-otc" : "t-gen"; }
+
+  function productRow(p,i){
+    return `
+    <article class="prow" data-reveal style="--d:${Math.min(i*0.045,0.4)}s">
+      <button class="prow-head" aria-expanded="false">
+        <span class="p-idx">${String(i+1).padStart(2,"0")}</span>
+        <span class="p-name"><strong>${p.name}</strong><span>${p.generic}</span></span>
+        <span class="p-cat">${p.cat}</span>
+        <span class="p-pack">${p.pack}</span>
+        <span class="p-tag ${tagClass(p.tag)}">${p.tag}</span>
+        <span class="p-chev"><i data-lucide="plus"></i></span>
+      </button>
+      <div class="prow-body"><div class="prow-body-in"><div class="prow-detail">
+        <dl class="p-specs">
+          <div><dt>Composition</dt><dd>${p.comp}</dd></div>
+          <div><dt>Pack</dt><dd>${p.pack} · ${p.form}</dd></div>
+          <div><dt>Storage</dt><dd>${p.storage}</dd></div>
+        </dl>
+        <div class="p-info">
+          <p>${p.desc}</p>
+          <button class="btn btn-ghost btn-sm" data-enquire="${p.name}">Enquire about this product <i data-lucide="arrow-up-right"></i></button>
+        </div>
+      </div></div></div>
+    </article>`;
+  }
+
+  function renderProducts(){
+    const q = pstate.q.trim().toLowerCase();
+    const items = PRODUCTS.filter(p =>
+      (pstate.cat==="All" || p.cat===pstate.cat) &&
+      (!q || (p.name+" "+p.generic+" "+p.desc).toLowerCase().includes(q))
+    );
+    countEl.textContent = `Showing ${items.length} of ${PRODUCTS.length} SKUs`;
+    if(!items.length){
+      listEl.innerHTML = `
+        <div class="p-empty">
+          <i data-lucide="search-x"></i>
+          <p>No products match “${pstate.q.replace(/</g,"&lt;")}”. Try a different term or category.</p>
+          <button class="btn btn-ghost btn-sm" id="pclear">Clear search</button>
+        </div>`;
+      const c = $("#pclear");
+      if(c) c.addEventListener("click", ()=>{
+        pstate.q=""; $("#psearch").value=""; renderProducts();
+      });
+    } else {
+      listEl.innerHTML = items.map(productRow).join("");
+    }
+    refreshIcons();
+    bindReveals(listEl);
+  }
+
+  function swapList(){
+    listEl.classList.add("swap");
+    clearTimeout(swapTimer);
+    swapTimer = setTimeout(()=>{ renderProducts(); listEl.classList.remove("swap"); }, 180);
+  }
+
+  /* Product row toggle + enquire (delegated) */
+  listEl.addEventListener("click", e=>{
+    const enq = e.target.closest("[data-enquire]");
+    if(enq){
+      const p = PRODUCTS.find(x=> x.name===enq.dataset.enquire);
+      if(p) goContact({
+        subject:"Product enquiry",
+        message:`Hello Seviora Pharma,\n\nI would like to enquire about ${p.name} (${p.generic}). Please share pricing, minimum order quantity and current availability.\n\nOrganisation: \nCity: `,
+        toastMsg:`Enquiry draft for ${p.name} prepared on the Contact page.`
+      });
+      return;
+    }
+    const head = e.target.closest(".prow-head");
+    if(head){
+      const row = head.closest(".prow");
+      const wasOpen = row.classList.contains("open");
+      $$(".prow.open", listEl).forEach(r=>{
+        r.classList.remove("open");
+        $(".prow-head", r).setAttribute("aria-expanded","false");
+      });
+      if(!wasOpen){ row.classList.add("open"); head.setAttribute("aria-expanded","true"); }
+    }
+  });
+
+  /* Tabs + search */
+  $$(".tabs button").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      if(b.dataset.cat===pstate.cat) return;
+      $$(".tabs button").forEach(x=> x.classList.remove("active"));
+      b.classList.add("active");
+      pstate.cat = b.dataset.cat;
+      swapList();
+    });
+  });
+  $("#psearch").addEventListener("input", e=>{
+    pstate.q = e.target.value;
+    swapList();
+  });
+
+  /* ---------- Router ---------- */
+  const TITLES = {
+    home:"Seviora Pharma — Quality medicines & medical supplies · Lucknow",
+    products:"Our Products · Seviora Pharma",
+    contact:"Contact Us · Seviora Pharma"
+  };
+  const PAGE_SELECTOR = "section[id^='page-']";
+  let current = null, productsBuilt = false, pendingContact = null;
+
+  function routeName(){
+    const h = (location.hash||"").replace(/^#\/?/,"");
+    if(h.startsWith("products")) return "products";
+    if(h.startsWith("contact"))  return "contact";
+    return "home";
+  }
+  function setActiveNav(name){
+    $$("[data-nav]").forEach(a=>{
+      const on = a.dataset.nav===name;
+      a.classList.toggle("active", on);
+      if(on) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
+    });
+  }
+  function show(name){
+    $$(PAGE_SELECTOR).forEach(p=> p.classList.toggle("active", p.id==="page-"+name));
+    setActiveNav(name);
+    document.title = TITLES[name];
+    window.scrollTo(0,0);
+    closeMenu();
+    if(name==="products" && !productsBuilt){ productsBuilt = true; renderProducts(); $("#phint").style.display="inline"; }
+    if(name==="contact"){ applyContactPreset(); updateOfficeStatus(); }
+    refreshIcons();
+    bindReveals($("#page-"+name));
+  }
+  window.addEventListener("hashchange", ()=>{
+    const name = routeName();
+    if(name===current) return;
+    const app = $("#app");
+    app.classList.add("is-leaving");
+    setTimeout(()=>{
+      current = name; show(name);
+      app.classList.remove("is-leaving");
+      app.classList.add("is-entering");
+      requestAnimationFrame(()=> requestAnimationFrame(()=>{
+        app.classList.remove("is-entering");
+      }));
+    }, 230);
+  });
+
+  /* ---------- Contact prefill + form ---------- */
+  function goContact(preset){
+    pendingContact = preset || null;
+    if(preset && preset.toastMsg) toast(preset.toastMsg);
+    if(routeName()==="contact") applyContactPreset();
+    else location.hash = "#/contact";
+  }
+  function applyContactPreset(){
+    if(!pendingContact) return;
+    const sel = $("#f-subject"), msg = $("#f-message");
+    if(pendingContact.subject){
+      const has = Array.from(sel.options).some(o=> o.value===pendingContact.subject || o.text===pendingContact.subject);
+      if(has) sel.value = pendingContact.subject;
+    }
+    if(pendingContact.message) msg.value = pendingContact.message;
+    pendingContact = null;
+  }
+
+  function setErr(input, msg){
+    const f = input.closest(".field");
+    f.classList.add("invalid");
+    $(".f-err", f).textContent = msg;
+  }
+  const cform = $("#cform"), csuccess = $("#csuccess"), fsubmit = $("#f-submit");
+
+  ["f-name","f-email","f-phone","f-message"].forEach(id=>{
+    const el = $("#"+id);
+    el.addEventListener("input", ()=>{
+      const f = el.closest(".field");
+      f.classList.remove("invalid"); $(".f-err", f).textContent = "";
+    });
+  });
+
+  cform.addEventListener("submit", e=>{
+    e.preventDefault();
+    $$(".field.invalid", cform).forEach(f=>{ f.classList.remove("invalid"); $(".f-err",f).textContent=""; });
+    let ok = true;
+    const name = $("#f-name"), email = $("#f-email"), phone = $("#f-phone"), message = $("#f-message");
+    if(name.value.trim().length < 2){ setErr(name,"Please enter your name."); ok=false; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){ setErr(email,"Please enter a valid email address."); ok=false; }
+    if(phone.value.replace(/\D/g,"").length < 10){ setErr(phone,"Please enter a valid phone number (10+ digits)."); ok=false; }
+    if(message.value.trim().length < 10){ setErr(message,"Please describe your requirement in a little more detail."); ok=false; }
+    if(!ok) return;
+    fsubmit.classList.add("loading"); fsubmit.disabled = true;
+    setTimeout(()=>{
+      cform.hidden = true; csuccess.hidden = false; refreshIcons();
+    }, 900);
+  });
+  $("#c-again").addEventListener("click", ()=>{
+    csuccess.hidden = true; cform.reset();
+    fsubmit.classList.remove("loading"); fsubmit.disabled = false;
+    cform.hidden = false; $("#f-name").focus();
+  });
+
+  /* ---------- Accordions (Home divisions) ---------- */
+  $$("[data-acc]").forEach(group=>{
+    const items = Array.from(group.querySelectorAll(".acc-item"));
+    items.forEach(it=>{
+      $(".acc-head", it).addEventListener("click", ()=>{
+        const wasOpen = it.classList.contains("open");
+        items.forEach(o=>{
+          o.classList.remove("open");
+          $(".acc-head", o).setAttribute("aria-expanded","false");
+        });
+        if(!wasOpen){
+          it.classList.add("open");
+          $(".acc-head", it).setAttribute("aria-expanded","true");
+        }
+      });
+    });
+  });
+
+  /* ---------- Mobile menu ---------- */
+  const burger = $("#burger");
+  function closeMenu(){
+    document.body.classList.remove("menu-open");
+    burger.setAttribute("aria-expanded","false");
+    burger.setAttribute("aria-label","Open menu");
+  }
+  burger.addEventListener("click", ()=>{
+    const open = document.body.classList.toggle("menu-open");
+    burger.setAttribute("aria-expanded", String(open));
+    burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  });
+  $$(".mmenu nav a").forEach(a=> a.addEventListener("click", closeMenu));
+  document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeMenu(); });
+
+  /* ---------- Header scroll state ---------- */
+  const navwrap = $("#navwrap");
+  window.addEventListener("scroll", ()=>{
+    navwrap.classList.toggle("scrolled", window.scrollY > 8);
+  }, {passive:true});
+
+  /* ---------- Global delegations ---------- */
+  function copyFallback(val){
+    const ta = document.createElement("textarea");
+    ta.value = val;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand("copy");
+      toast(`Copied: ${val}`);
+    } catch(err){}
+    document.body.removeChild(ta);
+  }
+
+  document.addEventListener("click", e=>{
+    const cat = e.target.closest("[data-catalogue]");
+    if(cat){
+      e.preventDefault();
+      goContact({ subject:"Catalogue request", toastMsg:"Catalogue request selected — tell us where to send it." });
+      return;
+    }
+    const copyBtn = e.target.closest(".copy-trigger");
+    if(copyBtn){
+      e.preventDefault();
+      const val = copyBtn.dataset.copy;
+      if(val){
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(val).then(()=>{
+            toast(`Copied: ${val}`);
+          }).catch(()=>{
+            copyFallback(val);
+          });
+        } else {
+          copyFallback(val);
+        }
+      }
+      return;
+    }
+    if(e.target.closest("#toTop")) window.scrollTo({top:0, behavior:"smooth"});
+  });
+
+  /* ---------- Office Hours Live Status ---------- */
+  function updateOfficeStatus(){
+    const badge = $("#office-status-badge");
+    if(!badge) return;
+    try {
+      const istStr = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
+      const istDate = new Date(istStr);
+      const day = istDate.getDay(); // 0 Sun, 1-6 Mon-Sat
+      const mins = istDate.getHours() * 60 + istDate.getMinutes();
+      // 9:30 AM = 570, 6:30 PM = 1110
+      const isOpen = (day >= 1 && day <= 6) && (mins >= 570 && mins < 1110);
+      if(isOpen){
+        badge.className = "c-badge-live";
+        badge.innerHTML = `<span class="c-live-dot"></span> Open now · 9:30 AM – 6:30 PM IST`;
+      } else {
+        badge.className = "c-badge-live is-closed";
+        badge.innerHTML = `<span class="c-live-dot"></span> Closed · Opens 9:30 AM IST (Mon–Sat)`;
+      }
+    } catch(e){}
+  }
+
+  /* ---------- Preloader ---------- */
+  const t0 = performance.now();
+  function liftLoader(){
+    document.body.classList.add("is-loaded");
+    document.body.classList.remove("is-loading");
+    setTimeout(()=>{ const l=$("#loader"); if(l) l.style.display="none"; }, 950);
+  }
+  Promise.race([
+    document.fonts ? document.fonts.ready : Promise.resolve(),
+    new Promise(r=> setTimeout(r, 2600))
+  ]).then(()=>{
+    const wait = Math.max(0, 1150 - (performance.now() - t0));
+    setTimeout(liftLoader, wait);
+  });
+
+  /* ---------- Init ---------- */
+  document.addEventListener("DOMContentLoaded", ()=>{
+    $("#yr").textContent = new Date().getFullYear();
+    current = routeName();
+    show(current);
+    updateOfficeStatus();
+    $$("[data-count]").forEach(el=> cio.observe(el));
+  });
+})();
+</script>
+</body>
+</html>

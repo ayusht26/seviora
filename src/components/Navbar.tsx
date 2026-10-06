@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { MapPin, Phone, Mail, ArrowUpRight } from "lucide-react";
 import styles from "./Navbar.module.css";
 
 const navLinks = [
@@ -14,111 +15,105 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  // Pages with dark hero backgrounds → navbar must always use dark-mode styles
-  const isDarkPage = pathname !== "/";
-
-  // Effective "dark" state: either scrolled, or on a dark-hero page
-  const isDark = scrolled || isDarkPage;
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    // Initialise immediately in case page is loaded already scrolled
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Close mobile menu on route change
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
-
   return (
-    <header className={`${styles.navbar} ${isDark ? styles.dark : ""}`}>
-      <nav className={styles.nav} aria-label="Main navigation">
-        <div className={styles.logo}>
-          <Link href="/" aria-label="Seviora Pharma Home">
-            <div className={styles.logoPill}>
+    <>
+      {/* Top Utility Bar */}
+      <div className={styles.topbar}>
+        <div className="container">
+          <div className={styles.topbarInner}>
+            <span className={styles.topbarLocation}>
+              <MapPin size={13} />
+              Gomti Nagar, Lucknow · Uttar Pradesh 226010
+            </span>
+            <div className={styles.topbarRight}>
+              <a href="tel:+919452948453" className={styles.topbarLink}>
+                <Phone size={13} />
+                +91 94529 48453
+              </a>
+              <a href="mailto:info@seviorapharma.com" className={styles.topbarLink}>
+                <Mail size={13} />
+                info@seviorapharma.com
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Header */}
+      <header className={styles.navwrap}>
+        <div className="container">
+          <div className={styles.navbar}>
+            <Link href="/" className={styles.brand} aria-label="Seviora Pharma Home">
               <Image
                 src="/logo.png"
                 alt="Seviora Pharma Private Limited"
                 width={140}
-                height={63}
+                height={56}
                 priority
-                className={styles.logoImg}
+                className={styles.brandLogo}
               />
+            </Link>
+
+            <nav className={styles.nav} aria-label="Primary navigation">
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`${styles.navLink} ${isActive ? styles.active : ""}`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className={styles.navCta}>
+              <Link href="/contact" className="btn btn-primary btn-sm">
+                Request Catalogue
+              </Link>
+              <button
+                className={styles.burger}
+                onClick={() => setMenuOpen(!menuOpen)}
+                aria-label="Toggle menu"
+                aria-expanded={menuOpen}
+              >
+                <span className={`${styles.burgerLine} ${menuOpen ? styles.burgerLine1Open : ""}`} />
+                <span className={`${styles.burgerLine} ${menuOpen ? styles.burgerLine2Open : ""}`} />
+              </button>
             </div>
-          </Link>
+          </div>
         </div>
 
-        {/* Desktop Links */}
-        <ul className={styles.links} role="list">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className={`${styles.link} ${pathname === link.href ? styles.linkActive : ""}`}
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        {/* CTA */}
-        <a
-          href="mailto:info@seviorapharma.com"
-          className={`btn btn-primary ${styles.ctaBtn}`}
-          aria-label="Email Seviora Pharma"
-        >
-          Get in Touch
-        </a>
-
-        {/* Mobile hamburger */}
-        <button
-          id="nav-menu-toggle"
-          className={styles.hamburger}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-expanded={menuOpen}
-          aria-label="Toggle navigation menu"
-        >
-          <span className={`${styles.bar} ${menuOpen ? styles.barOpen1 : ""}`} />
-          <span className={`${styles.bar} ${menuOpen ? styles.barOpen2 : ""}`} />
-          <span className={`${styles.bar} ${menuOpen ? styles.barOpen3 : ""}`} />
-        </button>
-      </nav>
-
-      {/* Mobile drawer */}
-      {menuOpen && (
-        <div className={styles.mobileMenu}>
-          <ul role="list">
-            {navLinks.map((link) => (
-              <li key={link.href}>
+        {/* Mobile Menu Dropdown */}
+        {menuOpen && (
+          <div className={styles.mmenu}>
+            <nav aria-label="Mobile navigation">
+              {navLinks.map((link, idx) => (
                 <Link
+                  key={link.href}
                   href={link.href}
-                  className={`${styles.mobileLink} ${pathname === link.href ? styles.mobileLinkActive : ""}`}
+                  className={styles.mmenuLink}
                   onClick={() => setMenuOpen(false)}
                 >
-                  {link.label}
+                  <small>0{idx + 1}</small>
+                  <span>{link.label}</span>
+                  <ArrowUpRight size={18} />
                 </Link>
-              </li>
-            ))}
-            <li>
-              <a
-                href="mailto:info@seviorapharma.com"
-                className={`btn btn-primary ${styles.mobileCta}`}
-                onClick={() => setMenuOpen(false)}
-              >
-                Get in Touch
-              </a>
-            </li>
-          </ul>
-        </div>
-      )}
-    </header>
+              ))}
+            </nav>
+            <div className={styles.mmenuFoot}>
+              <a href="tel:+919452948453">+91 94529 48453</a>
+              <a href="mailto:info@seviorapharma.com">info@seviorapharma.com</a>
+              <span>Gomti Nagar, Lucknow, UP 226010</span>
+            </div>
+          </div>
+        )}
+      </header>
+    </>
   );
 }
