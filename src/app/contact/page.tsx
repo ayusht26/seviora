@@ -6,15 +6,49 @@ import styles from "./page.module.css";
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const submit = (e: FormEvent<HTMLFormElement>) => {
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const f = new FormData(e.currentTarget);
-    const body = `Name: ${f.get("name")}\nOrganisation: ${f.get("org")}\nEmail: ${f.get("email")}\nPhone: ${f.get("phone")}\n\n${f.get("message")}`;
-    window.location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(
-      String(f.get("subject"))
-    )}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    setErrorMessage(null);
+    setLoading(true);
+
+    const form = e.currentTarget;
+    const f = new FormData(form);
+
+    const payload = {
+      name: String(f.get("name") || ""),
+      organisation: String(f.get("org") || ""),
+      email: String(f.get("email") || ""),
+      phone: String(f.get("phone") || ""),
+      subject: String(f.get("subject") || "General enquiry"),
+      message: String(f.get("message") || ""),
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to submit enquiry. Please try again.");
+      }
+
+      setSent(true);
+    } catch (err: unknown) {
+      console.error("Submission error:", err);
+      const msg = err instanceof Error ? err.message : "Something went wrong while sending your enquiry.";
+      setErrorMessage(msg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const info = [
@@ -54,10 +88,10 @@ export default function ContactPage() {
             {sent ? (
               <div className={`rise ${styles.sentState}`}>
                 <div className={styles.sentIcon}>✓</div>
-                <h2 className={styles.sentTitle}>Thank you!</h2>
+                <h2 className={styles.sentTitle}>Enquiry Sent Successfully!</h2>
                 <p className={styles.sentDesc}>
-                  Your email app should open with your message. You can also write to us directly at{" "}
-                  {CONTACT.email}.
+                  Thank you for reaching out. Your enquiry has been forwarded directly to{" "}
+                  <strong>{CONTACT.email}</strong>. Our team will review your message and get back to you promptly.
                 </p>
                 <button
                   onClick={() => setSent(false)}
@@ -69,25 +103,30 @@ export default function ContactPage() {
             ) : (
               <form onSubmit={submit} className={styles.formGrid}>
                 <h2 className={styles.formTitle}>Send an enquiry</h2>
+                {errorMessage && (
+                  <div className={styles.errorMessage}>
+                    {errorMessage}
+                  </div>
+                )}
                 <label className={styles.label}>
                   Full name *
-                  <input required name="name" className={styles.field} />
+                  <input required name="name" disabled={loading} className={styles.field} placeholder="Dr. Sharma / Mr. Gupta" />
                 </label>
                 <label className={styles.label}>
                   Organisation
-                  <input name="org" className={styles.field} />
+                  <input name="org" disabled={loading} className={styles.field} placeholder="Hospital, Clinic or Pharmacy name" />
                 </label>
                 <label className={styles.label}>
                   Email *
-                  <input required type="email" name="email" className={styles.field} />
+                  <input required type="email" name="email" disabled={loading} className={styles.field} placeholder="you@domain.com" />
                 </label>
                 <label className={styles.label}>
                   Phone *
-                  <input required type="tel" name="phone" className={styles.field} />
+                  <input required type="tel" name="phone" disabled={loading} className={styles.field} placeholder="+91 98765 43210" />
                 </label>
                 <label className={`${styles.label} ${styles.colSpanFull}`}>
                   Subject
-                  <select name="subject" className={styles.field}>
+                  <select name="subject" disabled={loading} className={styles.field}>
                     <option>General enquiry</option>
                     <option>Product enquiry</option>
                     <option>Catalogue request</option>
@@ -96,10 +135,10 @@ export default function ContactPage() {
                 </label>
                 <label className={`${styles.label} ${styles.colSpanFull}`}>
                   Message *
-                  <textarea required name="message" rows={5} className={styles.field} />
+                  <textarea required name="message" rows={5} disabled={loading} className={styles.field} placeholder="Please describe your requirements or inquiry..." />
                 </label>
-                <button type="submit" className={styles.submitBtn}>
-                  Send enquiry
+                <button type="submit" disabled={loading} className={styles.submitBtn}>
+                  {loading ? "Sending enquiry..." : "Send enquiry"}
                 </button>
               </form>
             )}
@@ -109,3 +148,4 @@ export default function ContactPage() {
     </>
   );
 }
+

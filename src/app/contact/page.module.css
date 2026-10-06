@@ -140,9 +140,25 @@
   }
 }
 
-.submitBtn:hover {
+.submitBtn:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: var(--shadow-soft);
+}
+
+.submitBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.errorMessage {
+  grid-column: 1 / -1;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-size: 0.875rem;
+  line-height: 1.4;
 }
 
 /* Sent State */

@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import nodemailer from "nodemailer";
 
 interface ContactFormData {
   name: string;
@@ -145,6 +144,7 @@ export async function POST(req: Request) {
 
     // 3. Option B: Use Nodemailer SMTP if SMTP credentials are provided
     if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+      const nodemailer = (await import("nodemailer")).default;
       const port = Number(process.env.SMTP_PORT || 587);
       const secure = process.env.SMTP_SECURE === "true" || port === 465;
 
