@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { Header, Footer } from "@/components/site";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://seviorapharma.com"),
   title: "Seviora Pharma — Quality Medicines & Medical Supplies, Lucknow",
   description:
     "Seviora Pharma is a trusted Lucknow-based pharmaceutical company delivering quality medicines, medical goods and solutions to healthcare providers.",
@@ -36,6 +38,19 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-N37SYQ2NCE"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-N37SYQ2NCE');
+          `}
+        </Script>
         <Header />
         <main>{children}</main>
         <Footer />
