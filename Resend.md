@@ -21,26 +21,27 @@ Before you purchase the domain, Resend provides a free sandbox mode so you can t
 Open [`.env.local`](file:///d:/Coding/sevoria/.env.local) in your project and paste your key:
 
 ```env
-CONTACT_RECEIVER_EMAIL=your-resend-account-email@example.com
+CONTACT_RECEIVER_EMAIL=pharmaseviora@gmail.com
 RESEND_API_KEY=re_your_copied_key_here
 RESEND_FROM_EMAIL="Seviora Inquiries <onboarding@resend.dev>"
 ```
 
 > [!NOTE]
-> **Why your account email during testing?**  
-> Before verifying a custom domain, Resend's free sandbox (`onboarding@resend.dev`) only delivers test emails to the **email address registered to your Resend account**. Once you add your custom domain in Stage 2, it can send to any address (`info@seviorapharma.com`).
+> **Why `pharmaseviora@gmail.com`?**  
+> `pharmaseviora@gmail.com` is the registered Resend account address, meaning all visitor enquiries from the website form arrive directly in your inbox.
+> Once you verify your custom domain in Stage 2, you can also send to/from custom domain addresses.
 
 #### Step 3: Test the Contact Form
 1. Run `npm run dev` in your terminal.
 2. Open `http://localhost:3000/contact` in your browser.
 3. Fill out the form and click **Send enquiry**.
-4. Check your inbox and return to the **Emails** tab in Resend: your test message will appear there with full delivery stats!
+4. Check your inbox (`pharmaseviora@gmail.com`) and return to the **Emails** tab in Resend: your test message will appear there with full delivery stats!
 
 ---
 
 ### Stage 2: Once You Purchase `seviorapharma.com` (Custom Domain Verification)
 
-Once you buy the domain, you will connect it to Resend so emails look official (sending from `contact@seviorapharma.com` directly to `info@seviorapharma.com`):
+Once you buy the domain, you will connect it to Resend so emails look official (sending from `contact@seviorapharma.com` directly to `pharmaseviora@gmail.com`):
 
 #### Step 1: Add Domain in Resend
 1. On the left sidebar of your Resend dashboard, click **Domains** (located right above *Logs*).
@@ -64,14 +65,23 @@ Resend will display **3 DNS records** that prove you own the domain:
 
 ---
 
-### Stage 3: Add to Cloudflare for Production
+### Stage 3: Add to Cloudflare Workers for Production
 
-When you deploy your site on Cloudflare Pages, go to **Settings &rarr; Environment variables** and add:
+> [!CAUTION]
+> **Do NOT add `RESEND_API_KEY` to `wrangler.jsonc`!**  
+> GitHub's secret scanner will detect any key in `wrangler.jsonc` and revoke it.
 
-```env
-RESEND_API_KEY = re_your_resend_api_key
-CONTACT_RECEIVER_EMAIL = info@seviorapharma.com
-RESEND_FROM_EMAIL = Seviora Inquiries <contact@seviorapharma.com>
+Store the key encrypted directly on Cloudflare Workers:
+```powershell
+'re_your_api_key_here' | npx wrangler secret put RESEND_API_KEY
+```
+
+In [wrangler.jsonc](file:///d:/Coding/sevoria/wrangler.jsonc), keep only non-sensitive variables:
+```jsonc
+"vars": {
+  "CONTACT_RECEIVER_EMAIL": "pharmaseviora@gmail.com",
+  "RESEND_FROM_EMAIL": "Seviora Inquiries <onboarding@resend.dev>"
+}
 ```
 
 ---

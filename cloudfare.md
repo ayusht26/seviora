@@ -1,31 +1,25 @@
 # Complete Cloudflare Deployment & Contact Form Guide
 
-Please refer to the complete documentation in [cloudflare.md](file:///d:/Coding/sevoria/cloudflare.md).
+Please refer to the complete documentation in [cloudflare.md](file:///d:/Coding/sevoria/cloudflare.md) and [FUTURE.md](file:///d:/Coding/sevoria/FUTURE.md).
 
 ### Quick Summary:
 
-1. **Upload / Deploy to Cloudflare**:
-   - Go to [Cloudflare Dashboard](https://dash.cloudflare.com/) > **Compute (Workers & Pages)** > **Create application** > **Pages** > **Connect to Git**.
-   - Select repository: `ayusht26/seviora`.
-   - Preset: `Next.js`.
-   - Add Environment Variables:
-     - `CONTACT_RECEIVER_EMAIL` = `info@seviorapharma.com`
-     - `RESEND_API_KEY` = `re_your_api_key_from_resend`
-     - `RESEND_FROM_EMAIL` = `Seviora Inquiries <onboarding@resend.dev>`
-   - Click **Save and Deploy**.
-
-2. **Automatic Updates on `git push`**:
-   - Any time you run:
+1. **Deploying to Cloudflare Workers**:
+   - The site runs on Cloudflare Workers powered by OpenNext:
      ```bash
-     git add .
-     git commit -m "Update site content"
-     git push origin main
+     npm run deploy
      ```
-   - Cloudflare automatically detects the new commit via GitHub webhook and rebuilds/deploys the live site in ~60 seconds with zero downtime.
+   - Live URL: [https://sevoria.ayusht26-codes.workers.dev](https://sevoria.ayusht26-codes.workers.dev)
 
-3. **Contact Form Setup**:
-   - The form at `/contact` is fully hooked up to `/api/contact`.
-   - Submissions are formatted into a clean HTML email and dispatched to `info@seviorapharma.com`.
-   - Supports free sending via [Resend](https://resend.com) (recommended for Cloudflare Workers/Edge) or SMTP.
-   - For complete domain setup and free email forwarding via Cloudflare Email Routing, see [cloudflare.md](file:///d:/Coding/sevoria/cloudflare.md).
+2. **Contact Form Routing**:
+   - Submissions from the `/contact` form are sent to **`pharmaseviora@gmail.com`**.
+   - Authenticated with Resend.
+
+3. **Secrets & Security**:
+   - `RESEND_API_KEY` is securely stored in Cloudflare Worker encrypted storage via:
+     ```powershell
+     're_your_key' | npx wrangler secret put RESEND_API_KEY
+     ```
+   - **Never** add secrets to `wrangler.jsonc` or push them to GitHub.
+   - Non-sensitive variables are defined in [wrangler.jsonc](file:///d:/Coding/sevoria/wrangler.jsonc).
 

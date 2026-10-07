@@ -29,7 +29,7 @@ This document contains step-by-step instructions for:
 - **Contact Form**: Next.js Server Route (`/api/contact`)
   - Validates visitor data (name, email, phone, organisation, enquiry type, message).
   - Generates a branded HTML email with batch details and enquiry information.
-  - Sends the email directly to `info@seviorapharma.com`.
+  - Sends the email directly to `pharmaseviora@gmail.com`.
   - Sets the `Reply-To` header to the customer's email, so you can reply with one click.
 
 ---
@@ -138,7 +138,7 @@ git push origin main
 The contact form is located at `/contact` on your site. When a doctor, hospital, or distributor submits an enquiry:
 1. The form validates all fields in real-time.
 2. It sends a `POST` request to `/api/contact`.
-3. The server generates a professional HTML email and dispatches it to **`info@seviorapharma.com`**.
+3. The server generates a professional HTML email and dispatches it to **`pharmaseviora@gmail.com`**.
 4. The visitor sees an immediate confirmation badge on the screen.
 
 ### Email Provider: Resend (Recommended)
@@ -151,16 +151,19 @@ Cloudflare Workers/Pages run on an edge runtime. **Resend** uses HTTP REST APIs 
 3. Name it `Seviora Website` and grant `Full access`.
 4. Copy the key (starts with `re_...`).
 
-#### Step 4.2: Add Key to Cloudflare
-1. Go to your Cloudflare Dashboard > **Compute (Workers & Pages)** > **`seviora`**.
-2. Go to **Settings** > **Environment variables**.
-3. Add `RESEND_API_KEY` with your copied key value.
-4. Save and redeploy.
+#### Step 4.2: Add Key to Cloudflare (Securely via Wrangler)
+> [!CAUTION]
+> Do NOT save your Resend key in `wrangler.jsonc` or push it to GitHub, as GitHub secret scanning will revoke it automatically.
+
+Run this command in your terminal to save it encrypted on Cloudflare:
+```powershell
+'re_your_api_key_here' | npx wrangler secret put RESEND_API_KEY
+```
 
 #### Step 4.3: Testing before domain purchase
 - Before you purchase `seviorapharma.com`, Resend provides a sandbox sender:
   - `RESEND_FROM_EMAIL`: `Seviora Inquiries <onboarding@resend.dev>`
-  - In test mode, Resend sends emails to the email address registered with your Resend account.
+  - Enquiries are forwarded to your registered account email: `pharmaseviora@gmail.com`.
 - In local development without an API key, the API logs incoming enquiry payloads to the terminal without crashing.
 
 #### Step 4.4: After purchasing `seviorapharma.com`

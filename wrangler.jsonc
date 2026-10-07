@@ -13,8 +13,7 @@
 	},
 	"vars": {
 		"CONTACT_RECEIVER_EMAIL": "pharmaseviora@gmail.com",
-		"RESEND_FROM_EMAIL": "Seviora Inquiries <onboarding@resend.dev>",
-		"RESEND_API_KEY": "re_WBTSrPwv_8JBSZShLCXSPvRy99yX1TU16"
+		"RESEND_FROM_EMAIL": "Seviora Inquiries <onboarding@resend.dev>"
 	},
 	"services": [
 		{

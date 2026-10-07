@@ -78,37 +78,41 @@ git push origin main
 
 ---
 
-## 3. How to Update Environment Variables
-
+## 3. How to Update Environment Variables & Secrets
+ 
 Environment variables control where contact enquiries are sent and how Resend authenticates.
-
-### A. Production Variables (Live on Cloudflare)
-Production environment variables are configured in [wrangler.jsonc](file:///d:/Coding/sevoria/wrangler.jsonc) under the `"vars"` block:
-
+ 
+### A. Production Secrets (Cloudflare Encrypted Storage)
+> [!CAUTION]
+> **NEVER put `RESEND_API_KEY` into `wrangler.jsonc`!**  
+> `wrangler.jsonc` is tracked in git. If pushed to GitHub, GitHub secret scanning will automatically revoke your key.
+ 
+To securely add or update your Resend API key on Cloudflare Workers without touching git:
+```powershell
+'re_your_resend_api_key' | npx wrangler secret put RESEND_API_KEY
+```
+*(Or in Cloudflare Dashboard: **Workers & Pages** → **`sevoria`** → **Settings** → **Variables and Secrets** → **Add Secret**).*
+ 
+### B. Production Non-Sensitive Variables (wrangler.jsonc)
+Public configuration is kept in [wrangler.jsonc](file:///d:/Coding/sevoria/wrangler.jsonc) under the `"vars"` block:
+ 
 ```jsonc
 "vars": {
   "CONTACT_RECEIVER_EMAIL": "pharmaseviora@gmail.com",
-  "RESEND_FROM_EMAIL": "Seviora Inquiries <onboarding@resend.dev>",
-  "RESEND_API_KEY": "re_your_api_key_here"
+  "RESEND_FROM_EMAIL": "Seviora Inquiries <onboarding@resend.dev>"
 }
 ```
-
-Whenever you modify any value in `wrangler.jsonc`, simply run:
+ 
+Whenever you modify non-sensitive values in `wrangler.jsonc`, simply run:
 ```bash
 npm run deploy
 ```
-Wrangler will immediately update the live Worker's environment variables.
-
-> [!TIP]
-> You can also view or edit environment variables directly in the **Cloudflare Dashboard**:
-> 1. Go to **Workers & Pages** > Click **`sevoria`**.
-> 2. Go to **Settings** > **Variables and Secrets**.
-
-### B. Local Development Variables
+ 
+### C. Local Development Variables
 - Local `npm run dev` reads from [`.env.local`](file:///d:/Coding/sevoria/.env.local).
 - Local `npm run preview` reads from [`.dev.vars`](file:///d:/Coding/sevoria/.dev.vars).
-
-Keep both files updated if you generate a new API key.
+ 
+Both files are strictly ignored by `.gitignore` so your keys stay private.
 
 ---
 

@@ -90,8 +90,8 @@ export default function ContactPage() {
                 <div className={styles.sentIcon}>✓</div>
                 <h2 className={styles.sentTitle}>Enquiry Sent Successfully!</h2>
                 <p className={styles.sentDesc}>
-                  Thank you for reaching out. Your enquiry has been forwarded directly to{" "}
-                  <strong>{CONTACT.email}</strong>. Our team will review your message and get back to you promptly.
+                  Thank you for reaching out. Your enquiry has been received and forwarded to our team.
+                  We will review your message and get back to you promptly.
                 </p>
                 <button
                   onClick={() => setSent(false)}
