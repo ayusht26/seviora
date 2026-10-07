@@ -12,7 +12,7 @@ Please refer to the complete documentation in [cloudflare.md](file:///d:/Coding/
    - Live URL: [https://sevoria.ayusht26-codes.workers.dev](https://sevoria.ayusht26-codes.workers.dev)
 
 2. **Contact Form Routing**:
-   - Submissions from the `/contact` form are sent to **`pharmaseviora@gmail.com`**.
+   - Submissions from the `/contact` form are sent to **`seviorapharma@gmail.com`**.
    - Authenticated with Resend.
 
 3. **Secrets & Security**:

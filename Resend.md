@@ -21,27 +21,27 @@ Before you purchase the domain, Resend provides a free sandbox mode so you can t
 Open [`.env.local`](file:///d:/Coding/sevoria/.env.local) in your project and paste your key:
 
 ```env
-CONTACT_RECEIVER_EMAIL=pharmaseviora@gmail.com
+CONTACT_RECEIVER_EMAIL=seviorapharma@gmail.com
 RESEND_API_KEY=re_your_copied_key_here
 RESEND_FROM_EMAIL="Seviora Inquiries <onboarding@resend.dev>"
 ```
 
 > [!NOTE]
-> **Why `pharmaseviora@gmail.com`?**  
-> `pharmaseviora@gmail.com` is the registered Resend account address, meaning all visitor enquiries from the website form arrive directly in your inbox.
+> **Why `seviorapharma@gmail.com`?**  
+> `seviorapharma@gmail.com` is the registered Resend account address, meaning all visitor enquiries from the website form arrive directly in your inbox.
 > Once you verify your custom domain in Stage 2, you can also send to/from custom domain addresses.
 
 #### Step 3: Test the Contact Form
 1. Run `npm run dev` in your terminal.
 2. Open `http://localhost:3000/contact` in your browser.
 3. Fill out the form and click **Send enquiry**.
-4. Check your inbox (`pharmaseviora@gmail.com`) and return to the **Emails** tab in Resend: your test message will appear there with full delivery stats!
+4. Check your inbox (`seviorapharma@gmail.com`) and return to the **Emails** tab in Resend: your test message will appear there with full delivery stats!
 
 ---
 
 ### Stage 2: Once You Purchase `seviorapharma.com` (Custom Domain Verification)
 
-Once you buy the domain, you will connect it to Resend so emails look official (sending from `contact@seviorapharma.com` directly to `pharmaseviora@gmail.com`):
+Once you buy the domain, you will connect it to Resend so emails look official (sending from `contact@seviorapharma.com` directly to `seviorapharma@gmail.com`):
 
 #### Step 1: Add Domain in Resend
 1. On the left sidebar of your Resend dashboard, click **Domains** (located right above *Logs*).
@@ -79,7 +79,7 @@ Store the key encrypted directly on Cloudflare Workers:
 In [wrangler.jsonc](file:///d:/Coding/sevoria/wrangler.jsonc), keep only non-sensitive variables:
 ```jsonc
 "vars": {
-  "CONTACT_RECEIVER_EMAIL": "pharmaseviora@gmail.com",
+  "CONTACT_RECEIVER_EMAIL": "seviorapharma@gmail.com",
   "RESEND_FROM_EMAIL": "Seviora Inquiries <onboarding@resend.dev>"
 }
 ```

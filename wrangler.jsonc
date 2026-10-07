@@ -12,7 +12,7 @@
 		"binding": "ASSETS"
 	},
 	"vars": {
-		"CONTACT_RECEIVER_EMAIL": "pharmaseviora@gmail.com",
+		"CONTACT_RECEIVER_EMAIL": "seviorapharma@gmail.com",
 		"RESEND_FROM_EMAIL": "Seviora Inquiries <onboarding@resend.dev>"
 	},
 	"services": [

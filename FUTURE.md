@@ -98,7 +98,7 @@ Public configuration is kept in [wrangler.jsonc](file:///d:/Coding/sevoria/wrang
  
 ```jsonc
 "vars": {
-  "CONTACT_RECEIVER_EMAIL": "pharmaseviora@gmail.com",
+  "CONTACT_RECEIVER_EMAIL": "seviorapharma@gmail.com",
   "RESEND_FROM_EMAIL": "Seviora Inquiries <onboarding@resend.dev>"
 }
 ```

@@ -48,7 +48,7 @@ export async function POST(req: Request) {
     const safeMessage = escapeHtml(message.trim()).replace(/\n/g, "<br/>");
 
     // Email recipient (the site owner or contact team)
-    const toEmail = process.env.CONTACT_RECEIVER_EMAIL || "pharmaseviora@gmail.com";
+    const toEmail = process.env.CONTACT_RECEIVER_EMAIL || "seviorapharma@gmail.com";
     const fromEmail = process.env.RESEND_FROM_EMAIL || "Seviora Inquiries <onboarding@resend.dev>";
 
     // Clean HTML template for the email
